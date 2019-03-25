@@ -10,16 +10,17 @@ using System.Windows.Forms;
 
 namespace apMatrizEsparsa
 {
-    public partial class Form1 : Form
+    public partial class frmMatriz : Form
     {
-        public Form1()
+        ListaCruzada matrizEsparsa;
+        public frmMatriz()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmMatriz_Load(object sender, EventArgs e)
         {
-
+            // matrizEsparsa = new ListaCruzada();
         }
     }
 }
