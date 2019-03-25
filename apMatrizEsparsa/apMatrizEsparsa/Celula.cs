@@ -10,7 +10,7 @@ public class Celula
     int linha, coluna;
     double? info;
     
-    public Celula(double? i, int l, int co, Celula d, Celula a)
+    public Celula(int l, int co, double? i, Celula d, Celula a)
     {
         info = i;
         linha = l;

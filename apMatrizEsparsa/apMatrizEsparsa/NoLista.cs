@@ -1,5 +1,5 @@
 ﻿using System;
-public class Celula<Dado> where Dado : IComparable<Dado>, IGravarEmArquivo
+public class Celula<Dado> where Dado : IComparable<Dado>
 { 
     Dado info;
     Celula<Dado> prox;
