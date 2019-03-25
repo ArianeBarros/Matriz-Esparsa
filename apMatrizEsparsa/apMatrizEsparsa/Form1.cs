@@ -16,12 +16,5 @@ namespace apMatrizEsparsa
         {
             InitializeComponent();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            ListaCircular a = new ListaCircular(2, 2);
-            a.InserirElemento(0,1, 9);
-            a.InserirElemento(0, 0, 8);
-        }
     }
 }

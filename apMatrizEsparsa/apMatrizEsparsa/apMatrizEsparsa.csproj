@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{57D6D430-296A-40D3-B2C1-75FCC606BEE6}</ProjectGuid>
+    <ProjectGuid>{6AFE6067-56C0-44CA-80E6-BCD687E3E0A2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>apMatrizEsparsa</RootNamespace>
     <AssemblyName>apMatrizEsparsa</AssemblyName>
@@ -45,20 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Celula.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListaCircular.cs" />
-    <Compile Include="NoLista.cs" />
+    <Compile Include="ListaCruzada.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
