@@ -40,7 +40,7 @@ namespace apMatrizEsparsa
             atual.Direita = cabeca;
         }
 
-        public int Qtd { get => qtd; set => qtd = value; }
+        public int Qtd { get => qtd;}
         public int NumLinhas { get => numLinhas; }
         public int NumColunas { get => numColunas; }
         public Celula Cabeca { get => cabeca; }

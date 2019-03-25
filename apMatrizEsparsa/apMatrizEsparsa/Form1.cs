@@ -22,5 +22,16 @@ namespace apMatrizEsparsa
         {
             // matrizEsparsa = new ListaCruzada();
         }
+
+        private void btnLerMatrizA_Click(object sender, EventArgs e)
+        {
+            LerMatriz(arq, dgvA);
+        }
+
+
+        public void LerMatriz(string arq, DataGridView dgv)
+        {
+
+        }
     }
 }
