@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace apMatrizEsparsa
 {
@@ -19,6 +20,19 @@ namespace apMatrizEsparsa
             this.valor = v;
             this.direita = d;
             this.abaixo = a;
+        }
+
+        public static Celula LerRegistro(StreamReader arq)
+        {
+
+            Celula cel = null;
+            //if (!arq.EndOfStream)
+            //{
+            //    string linha = arq.ReadLine();
+            //    cel = new Celula();
+            //}
+
+            return cel;
         }
 
         public int Coluna { get => coluna; }

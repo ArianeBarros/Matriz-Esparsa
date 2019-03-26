@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Windows.Forms;
 
 namespace apMatrizEsparsa
 {
@@ -32,7 +34,7 @@ namespace apMatrizEsparsa
             atual = cabeca;
             for (int i = 0; i < colunas; i++)
             {
-                Celula novaCelula = new Celula(0, i, 0, null, null);
+                Celula novaCelula = new Celula(-1, i, 0, null, null);
                 atual.Direita = novaCelula;
                 atual = novaCelula;
                 atual.Abaixo = atual;
@@ -44,6 +46,33 @@ namespace apMatrizEsparsa
         public int NumLinhas { get => numLinhas; }
         public int NumColunas { get => numColunas; }
         public Celula Cabeca { get => cabeca; }
+        
+
+        public void InserirElemento(int l, int c, double v)
+        {
+            if (c < 0 || l < 0)
+                throw new Exception("Índice inválido!!");
+
+            Celula novaCelula = new Celula(l, c, v, null, null);
+            atual = cabeca;
+
+            for(int i = 0; i < l; i++) //linha
+            {
+                for (int j = 0; j < c; j++) //coluna
+                {
+                    esquerda = atual;
+                    atual = atual.Direita;
+                }
+                atual = atual.Abaixo;                
+            }
+
+            qtd++;
+        }
+
+        public void Listar(DataGridView dgv)
+        {
+
+        }
     }
 
 }
