@@ -41,7 +41,7 @@ namespace apMatrizEsparsa
                 while (!arquivo.EndOfStream)
                 {
                     Celula lida = Celula.LerRegistro(arquivo);
-                    
+                    lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
                 }
                 arquivo.Close();
                 lista.Listar(dgv);
@@ -51,6 +51,11 @@ namespace apMatrizEsparsa
         private void btnLerMatrizB_Click(object sender, EventArgs e)
         {
             LerMatriz(ref matrizB, dgvB);
+        }
+
+        private void btnSomarMatrizes_Click(object sender, EventArgs e)
+        {
+            matrizA.SomarMatrizes(matrizB);
         }
     }
 }

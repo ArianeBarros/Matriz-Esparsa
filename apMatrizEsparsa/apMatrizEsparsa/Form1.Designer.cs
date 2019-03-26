@@ -222,6 +222,7 @@
             this.btnSomarMatrizes.TabIndex = 6;
             this.btnSomarMatrizes.Text = "Somar Matrizes";
             this.btnSomarMatrizes.UseVisualStyleBackColor = true;
+            this.btnSomarMatrizes.Click += new System.EventHandler(this.btnSomarMatrizes_Click);
             // 
             // btnSomarLinha
             // 
