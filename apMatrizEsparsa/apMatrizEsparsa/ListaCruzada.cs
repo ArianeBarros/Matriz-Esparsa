@@ -10,43 +10,43 @@ namespace apMatrizEsparsa
 {
     class ListaCruzada
     {
-        Celula cabeca, acima, esquerda, direita, atual;
+        Celula cabeca;
         int numLinhas, numColunas;
         int qtd;
 
         public ListaCruzada()
         {
-            cabeca = acima = esquerda = direita = atual = null;
+            cabeca = null;
             qtd = 0;
         }
 
-        //public ListaCruzada(int linhas, int colunas)
-        //{
-        //    cabeca = new Celula(-1, -1, 0, null, null);
-        //    qtd = 0;
-        //    numLinhas = linhas;
-        //    numColunas = colunas;
+        public ListaCruzada(int linhas, int colunas)
+        {
+            cabeca = new Celula(-1, -1, 0, null, null);
+            qtd = 0;
+            numLinhas = linhas;
+            numColunas = colunas;
 
-        //    atual = cabeca;
-        //    for (int i = 0; i < linhas; i++)
-        //    {
-        //        Celula novaCelula = new Celula(i, -1, 0, null, null);
-        //        atual.Abaixo = novaCelula;
-        //        atual = novaCelula;
-        //        atual.Direita = atual;
-        //    }
-        //    atual.Abaixo = cabeca;
+            Celula atual = cabeca;
+            for (int i = 0; i < linhas; i++)
+            {
+                Celula novaCelula = new Celula(i, -1, 0, null, null);
+                atual.Abaixo = novaCelula;
+                atual = novaCelula;
+                atual.Direita = atual;
+            }
+            atual.Abaixo = cabeca;
 
-        //    atual = cabeca;
-        //    for (int i = 0; i < colunas; i++)
-        //    {
-        //        Celula novaCelula = new Celula(-1, i, 0, null, null);
-        //        atual.Direita = novaCelula;
-        //        atual = novaCelula;
-        //        atual.Abaixo = atual;
-        //    }
-        //    atual.Direita = cabeca;
-        //}
+            atual = cabeca;
+            for (int i = 0; i < colunas; i++)
+            {
+                Celula novaCelula = new Celula(-1, i, 0, null, null);
+                atual.Direita = novaCelula;
+                atual = novaCelula;
+                atual.Abaixo = atual;
+            }
+            atual.Direita = cabeca;
+        }
 
 
         public int Qtd { get => qtd;}
@@ -61,7 +61,7 @@ namespace apMatrizEsparsa
                 throw new Exception("Índice inválido!!");
 
             Celula novaCelula = new Celula(l, c, v, null, null);
-            atual = cabeca;  
+            Celula atual = cabeca, anterior = null;
 
             while(atual.Linha != l)
             {
@@ -87,6 +87,19 @@ namespace apMatrizEsparsa
             atual.Direita = novaCelula;
             
             qtd++;
+        }
+
+        public double Valor(int l, int c)
+        {
+            Celula atualLinha = cabeca;
+
+            while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
+                atualLinha = atualLinha.Abaixo;
+
+            Celula atualColuna = atualLinha;
+
+            while(atualColuna )
+
         }
 
         public void Listar(DataGridView dgv)
