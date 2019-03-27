@@ -26,11 +26,12 @@ namespace apMatrizEsparsa
         {
 
             Celula cel = null;
-            //if (!arq.EndOfStream)
-            //{
-            //    string linha = arq.ReadLine();
-            //    cel = new Celula();
-            //}
+            if (!arq.EndOfStream)
+            {
+                string linha = arq.ReadLine();
+                string[] conteudo = linha.Split(',');
+                cel = new Celula(int.Parse(conteudo[0]), int.Parse(conteudo[1]), double.Parse(conteudo[2]), null, null);
+            }
 
             return cel;
         }
@@ -43,3 +44,7 @@ namespace apMatrizEsparsa
         public Celula Abaixo { get => abaixo; set => abaixo = value; }
     }
 }
+
+//368
+//360
+//386

@@ -10,22 +10,23 @@ namespace apMatrizEsparsa
 {
     class ListaCruzada
     {
-        Celula cabeca;
+        Celula cabeca, primeiro;
         int numLinhas, numColunas;
         int qtd;
-
+        
         public ListaCruzada()
         {
             cabeca = null;
             qtd = 0;
         }
-
         public ListaCruzada(int linhas, int colunas)
         {
             cabeca = new Celula(-1, -1, 0, null, null);
             qtd = 0;
             numLinhas = linhas;
             numColunas = colunas;
+
+            primeiro = null;
 
             Celula atual = cabeca;
             for (int i = 0; i < linhas; i++)
@@ -60,12 +61,16 @@ namespace apMatrizEsparsa
             if (c < 0 || l < 0)
                 throw new Exception("Índice inválido!!");
 
+            if (v == 0)
+                return; // arrumar
+
             Celula novaCelula = new Celula(l, c, v, null, null);
             Celula atual = cabeca, anterior = null;
 
+
             while(atual.Linha != l)
             {
-                acima = atual;
+                anterior = atual;
                 atual = atual.Abaixo;                  
             }
 
@@ -77,7 +82,7 @@ namespace apMatrizEsparsa
 
             while (atual.Coluna != c)
             {                
-                esquerda = atual;
+                anterior = atual;
                 atual = atual.Direita;
             }
 
@@ -89,8 +94,10 @@ namespace apMatrizEsparsa
             qtd++;
         }
 
-        public double Valor(int l, int c)
+        public double? Valor(int l, int c)
         {
+            double? valor = null;
+
             Celula atualLinha = cabeca;
 
             while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
@@ -98,16 +105,36 @@ namespace apMatrizEsparsa
 
             Celula atualColuna = atualLinha;
 
-            while(atualColuna )
+            while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
+                atualColuna = atualColuna.Direita;
 
+            //TERMINAR AQUII
+
+            return valor;
         }
 
         public void Listar(DataGridView dgv)
         {
+            Celula atual = primeiro;
+            int i = 0;
+            int j = 0;
 
+            while(atual != null)
+            {
+                while(i < dgv.ColumnCount)
+                {
+                    for (j = 0; j < dgv.ColumnCount; j++)
+                    {
+                        dgv.Rows[i].Cells[j].Value = atual.Valor;
+                        atual = atual.Direita;
+                    }
+                    j = 0;
+                    i++;
+                }                      
+            }
         }
 
-        public ListaCruzada SomarMatrizes()
+        public ListaCruzada SomarMatrizes(ListaCruzada listaB)
         {
             ListaCruzada soma = null;
 

@@ -36,10 +36,12 @@ namespace apMatrizEsparsa
             if(dlgAbrir.ShowDialog() == DialogResult.OK)
             {                
                 var arquivo = new StreamReader(dlgAbrir.FileName);
-                lista = new ListaCruzada();  
+
+                lista = new ListaCruzada();
 
                 while (!arquivo.EndOfStream)
                 {
+                    string linha = arquivo.ReadLine();
                     Celula lida = Celula.LerRegistro(arquivo);
                     lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
                 }
@@ -56,6 +58,11 @@ namespace apMatrizEsparsa
         private void btnSomarMatrizes_Click(object sender, EventArgs e)
         {
             matrizA.SomarMatrizes(matrizB);
+        }
+
+        private void btnSomarColuna_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

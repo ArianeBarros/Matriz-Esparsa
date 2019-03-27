@@ -205,12 +205,13 @@
             this.btnSomarColuna.TabIndex = 5;
             this.btnSomarColuna.Text = "Somar Coluna";
             this.btnSomarColuna.UseVisualStyleBackColor = true;
+            this.btnSomarColuna.Click += new System.EventHandler(this.btnSomarColuna_Click);
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(109, 118);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 20);
+            this.textBox1.Size = new System.Drawing.Size(149, 20);
             this.textBox1.TabIndex = 9;
             // 
             // btnSomarMatrizes
@@ -218,7 +219,7 @@
             this.btnSomarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSomarMatrizes.Location = new System.Drawing.Point(25, 183);
             this.btnSomarMatrizes.Name = "btnSomarMatrizes";
-            this.btnSomarMatrizes.Size = new System.Drawing.Size(204, 67);
+            this.btnSomarMatrizes.Size = new System.Drawing.Size(233, 67);
             this.btnSomarMatrizes.TabIndex = 6;
             this.btnSomarMatrizes.Text = "Somar Matrizes";
             this.btnSomarMatrizes.UseVisualStyleBackColor = true;
@@ -227,7 +228,7 @@
             // btnSomarLinha
             // 
             this.btnSomarLinha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarLinha.Location = new System.Drawing.Point(139, 28);
+            this.btnSomarLinha.Location = new System.Drawing.Point(168, 28);
             this.btnSomarLinha.Name = "btnSomarLinha";
             this.btnSomarLinha.Size = new System.Drawing.Size(90, 53);
             this.btnSomarLinha.TabIndex = 4;
@@ -255,7 +256,7 @@
             // btnDeletar
             // 
             this.btnDeletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeletar.Location = new System.Drawing.Point(136, 207);
+            this.btnDeletar.Location = new System.Drawing.Point(132, 207);
             this.btnDeletar.Name = "btnDeletar";
             this.btnDeletar.Size = new System.Drawing.Size(75, 43);
             this.btnDeletar.TabIndex = 8;
@@ -275,7 +276,7 @@
             // btnAlterar
             // 
             this.btnAlterar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAlterar.Location = new System.Drawing.Point(230, 207);
+            this.btnAlterar.Location = new System.Drawing.Point(229, 207);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(82, 43);
             this.btnAlterar.TabIndex = 6;
