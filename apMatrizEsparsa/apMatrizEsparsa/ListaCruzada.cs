@@ -10,13 +10,13 @@ namespace apMatrizEsparsa
 {
     class ListaCruzada
     {
-        Celula cabeca, primeiro;
+        Celula cabeca, atualLinha, anteriorLinha, atualColuna, anteriorColuna;
         int numLinhas, numColunas;
         int qtd;
         
         public ListaCruzada()
         {
-            cabeca = null;
+            cabeca = new Celula(-1, -1, 0, null, null); ;
             qtd = 0;
         }
         public ListaCruzada(int linhas, int colunas)
@@ -25,9 +25,7 @@ namespace apMatrizEsparsa
             qtd = 0;
             numLinhas = linhas;
             numColunas = colunas;
-
-            primeiro = null;
-
+            
             Celula atual = cabeca;
             for (int i = 0; i < linhas; i++)
             {
@@ -64,74 +62,111 @@ namespace apMatrizEsparsa
             if (v == 0)
                 return; // arrumar
 
-            Celula novaCelula = new Celula(l, c, v, null, null);
-            Celula atual = cabeca, anterior = null;
-
-
-            while(atual.Linha != l)
+            if (Existe(l, c))
+                atualColuna.Valor = v;
+            else
             {
-                anterior = atual;
-                atual = atual.Abaixo;                  
+                Celula novaCelula = new Celula(l, c, v, null, null);
+
+                anteriorColuna.Abaixo = novaCelula;
+                novaCelula.Abaixo = atualColuna;
+
+                anteriorLinha.Direita = novaCelula;
+                novaCelula.Direita = atualLinha;
+                qtd++;
             }
-
-            while (atual.Abaixo != atual)
-                atual = atual.Abaixo;   
-
-            atual.Abaixo = novaCelula;
-            
-
-            while (atual.Coluna != c)
-            {                
-                anterior = atual;
-                atual = atual.Direita;
-            }
-
-            while (atual.Direita != atual)
-                atual = atual.Direita;
-
-            atual.Direita = novaCelula;
-            
-            qtd++;
         }
+        
 
-        public double? Valor(int l, int c)
+        public bool Existe(int l, int c)
         {
-            double? valor = null;
+            Celula atual = cabeca;
 
-            Celula atualLinha = cabeca;
+            while (atual.Linha != l && atual.Abaixo != atual)
+            {
+                anteriorLinha = atualLinha;
+                atual = atual.Abaixo;
+            }
+            
 
-            while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
-                atualLinha = atualLinha.Abaixo;
+            while (atual.Coluna != c && atual.Direita != atual)
+            {
+                atual = atual.Direita;
+            }
+            
 
-            Celula atualColuna = atualLinha;
 
-            while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
-                atualColuna = atualColuna.Direita;
+            if (atual.Linha != l && atual.Coluna != c)
+                return false;
+            else
+                return true;
+            //atualLinha = cabeca;
+            //anteriorLinha = null;
+            //atualColuna = cabeca;
+            //anteriorColuna = null;
 
-            //TERMINAR AQUII
+            //while (atualLinha.Linha != l && atualLinha.Abaixo != atualLinha)
+            //{
+            //    anteriorLinha = atualLinha;
+            //    atualLinha = atualLinha.Abaixo;
+            //}
 
-            return valor;
+            //while (atualLinha.Coluna != c && atualLinha.Direita != atualLinha)
+            //{
+            //    anteriorLinha = atualLinha;
+            //    atualLinha = atualLinha.Direita;
+            //}
+
+            //while (atualColuna.Coluna != c && atualColuna.Direita != atualColuna)
+            //{
+            //    anteriorColuna = atualColuna;
+            //    atualColuna = atualColuna.Direita;
+            //}
+
+            //while (atualColuna.Linha != l && atualColuna.Abaixo != atualColuna)
+            //{
+            //    anteriorColuna = atualColuna;
+            //    atualColuna = atualColuna.Abaixo;
+            //}
+
+            //if (atualColuna.Linha != l && atualColuna.Coluna != c)
+            //    return false;
+            //else
+            //    return true;
         }
 
         public void Listar(DataGridView dgv)
         {
-            Celula atual = primeiro;
-            int i = 0;
-            int j = 0;
+            dgv.ColumnCount = numColunas;
+            dgv.RowCount = numLinhas;
 
-            while(atual != null)
+            for (int l = 0; l < numLinhas; l++)
             {
-                while(i < dgv.ColumnCount)
+                for (int c = 0; c < numColunas; c++)
                 {
-                    for (j = 0; j < dgv.ColumnCount; j++)
-                    {
-                        dgv.Rows[i].Cells[j].Value = atual.Valor;
-                        atual = atual.Direita;
-                    }
-                    j = 0;
-                    i++;
-                }                      
+                    if (dgv[c, l].Value == null)
+                        dgv[c, l].Value = 0;                    
+                    else
+                        dgv[c, l].Value = atualColuna.Valor;
+                }
             }
+
+            // dgv.ColumnCount = numColunas;
+            // dgv.RowCount = numLinhas;
+
+            //for(int l = 0; l < numLinhas; l++)
+            // {
+            //     for(int c = 0; c < numColunas; c++)
+            //     {
+            //         if (Existe(l, c))
+            //             dgv[c, l].Value = atualColuna.Valor;
+            //         else
+            //             dgv[c, l].Value = 0;
+
+
+            //     }
+            // }
+
         }
 
         public ListaCruzada SomarMatrizes(ListaCruzada listaB)

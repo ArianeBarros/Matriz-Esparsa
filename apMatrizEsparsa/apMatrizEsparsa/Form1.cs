@@ -22,7 +22,7 @@ namespace apMatrizEsparsa
 
         private void frmMatriz_Load(object sender, EventArgs e)
         {
-            // matrizEsparsa = new ListaCruzada();
+            
         }
 
         private void btnLerMatrizA_Click(object sender, EventArgs e)
@@ -31,23 +31,46 @@ namespace apMatrizEsparsa
         }
 
 
-        public void LerMatriz(ref ListaCruzada lista, DataGridView dgv)
+        private void LerMatriz(ref ListaCruzada lista, DataGridView dgv)
         {
-            if(dlgAbrir.ShowDialog() == DialogResult.OK)
-            {                
+            if (dlgAbrir.ShowDialog() == DialogResult.OK)
+            {
                 var arquivo = new StreamReader(dlgAbrir.FileName);
 
-                lista = new ListaCruzada();
+                string numeroLinhaColuna = arquivo.ReadLine();
+
+                lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5)));
+
+                dgv.ColumnCount = int.Parse(numeroLinhaColuna.Substring(0, 5));
+                dgv.RowCount = int.Parse(numeroLinhaColuna.Substring(5, 5));
 
                 while (!arquivo.EndOfStream)
                 {
-                    string linha = arquivo.ReadLine();
                     Celula lida = Celula.LerRegistro(arquivo);
-                    lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
+                    //lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
+
+                    dgv[lida.Coluna - 1, lida.Linha].Value = lida.Valor;
                 }
                 arquivo.Close();
-                lista.Listar(dgv);
+               // lista.Listar(dgv);
             }
+
+            //if(dlgAbrir.ShowDialog() == DialogResult.OK)
+            //{                
+            //    var arquivo = new StreamReader(dlgAbrir.FileName);
+
+            //    string numeroLinhaColuna = arquivo.ReadLine();
+
+            //    lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0,5)), int.Parse(numeroLinhaColuna.Substring(5,5)));
+
+            //    while (!arquivo.EndOfStream)
+            //    {
+            //        Celula lida = Celula.LerRegistro(arquivo);
+            //        lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
+            //    }
+            //    arquivo.Close();
+            //    lista.Listar(dgv);
+            //}
         }
 
         private void btnLerMatrizB_Click(object sender, EventArgs e)

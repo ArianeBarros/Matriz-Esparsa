@@ -38,13 +38,9 @@ namespace apMatrizEsparsa
 
         public int Coluna { get => coluna; }
         public int Linha { get => linha; }
-        public double Valor { get => valor; }
+        public double Valor { get => valor; set => valor = value; }
 
         public Celula Direita { get => direita; set => direita = value; }
         public Celula Abaixo { get => abaixo; set => abaixo = value; }
     }
 }
-
-//368
-//360
-//386
