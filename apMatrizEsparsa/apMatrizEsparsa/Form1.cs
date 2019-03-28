@@ -41,36 +41,14 @@ namespace apMatrizEsparsa
 
                 lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5)));
 
-                dgv.ColumnCount = int.Parse(numeroLinhaColuna.Substring(0, 5));
-                dgv.RowCount = int.Parse(numeroLinhaColuna.Substring(5, 5));
-
                 while (!arquivo.EndOfStream)
                 {
                     Celula lida = Celula.LerRegistro(arquivo);
-                    //lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
-
-                    dgv[lida.Coluna - 1, lida.Linha].Value = lida.Valor;
+                    lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
                 }
                 arquivo.Close();
-               // lista.Listar(dgv);
+                lista.Listar(dgv);
             }
-
-            //if(dlgAbrir.ShowDialog() == DialogResult.OK)
-            //{                
-            //    var arquivo = new StreamReader(dlgAbrir.FileName);
-
-            //    string numeroLinhaColuna = arquivo.ReadLine();
-
-            //    lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0,5)), int.Parse(numeroLinhaColuna.Substring(5,5)));
-
-            //    while (!arquivo.EndOfStream)
-            //    {
-            //        Celula lida = Celula.LerRegistro(arquivo);
-            //        lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
-            //    }
-            //    arquivo.Close();
-            //    lista.Listar(dgv);
-            //}
         }
 
         private void btnLerMatrizB_Click(object sender, EventArgs e)

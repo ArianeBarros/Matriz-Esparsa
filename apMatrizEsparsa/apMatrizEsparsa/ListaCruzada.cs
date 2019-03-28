@@ -80,59 +80,40 @@ namespace apMatrizEsparsa
 
         public bool Existe(int l, int c)
         {
-            Celula atual = cabeca;
 
-            while (atual.Linha != l && atual.Abaixo != atual)
+            atualLinha = cabeca;
+            anteriorLinha = null;
+            atualColuna = cabeca;
+            anteriorColuna = null;
+
+            while (atualLinha.Linha != l && atualLinha.Abaixo != atualLinha)
             {
                 anteriorLinha = atualLinha;
-                atual = atual.Abaixo;
+                atualLinha = atualLinha.Abaixo;
             }
-            
 
-            while (atual.Coluna != c && atual.Direita != atual)
+            while (atualLinha.Coluna != c && atualLinha.Direita != atualLinha)
             {
-                atual = atual.Direita;
+                anteriorLinha = atualLinha;
+                atualLinha = atualLinha.Direita;
             }
-            
 
+            while (atualColuna.Coluna != c && atualColuna.Direita != atualColuna)
+            {
+                anteriorColuna = atualColuna;
+                atualColuna = atualColuna.Direita;
+            }
 
-            if (atual.Linha != l && atual.Coluna != c)
+            while (atualColuna.Linha != l && atualColuna.Abaixo != atualColuna)
+            {
+                anteriorColuna = atualColuna;
+                atualColuna = atualColuna.Abaixo;
+            }
+
+            if (atualColuna.Linha != l || atualColuna.Coluna != c)
                 return false;
             else
                 return true;
-            //atualLinha = cabeca;
-            //anteriorLinha = null;
-            //atualColuna = cabeca;
-            //anteriorColuna = null;
-
-            //while (atualLinha.Linha != l && atualLinha.Abaixo != atualLinha)
-            //{
-            //    anteriorLinha = atualLinha;
-            //    atualLinha = atualLinha.Abaixo;
-            //}
-
-            //while (atualLinha.Coluna != c && atualLinha.Direita != atualLinha)
-            //{
-            //    anteriorLinha = atualLinha;
-            //    atualLinha = atualLinha.Direita;
-            //}
-
-            //while (atualColuna.Coluna != c && atualColuna.Direita != atualColuna)
-            //{
-            //    anteriorColuna = atualColuna;
-            //    atualColuna = atualColuna.Direita;
-            //}
-
-            //while (atualColuna.Linha != l && atualColuna.Abaixo != atualColuna)
-            //{
-            //    anteriorColuna = atualColuna;
-            //    atualColuna = atualColuna.Abaixo;
-            //}
-
-            //if (atualColuna.Linha != l && atualColuna.Coluna != c)
-            //    return false;
-            //else
-            //    return true;
         }
 
         public void Listar(DataGridView dgv)
@@ -144,28 +125,12 @@ namespace apMatrizEsparsa
             {
                 for (int c = 0; c < numColunas; c++)
                 {
-                    if (dgv[c, l].Value == null)
-                        dgv[c, l].Value = 0;                    
-                    else
+                    if (Existe(l, c))
                         dgv[c, l].Value = atualColuna.Valor;
+                    else
+                        dgv[c, l].Value = 0;
                 }
             }
-
-            // dgv.ColumnCount = numColunas;
-            // dgv.RowCount = numLinhas;
-
-            //for(int l = 0; l < numLinhas; l++)
-            // {
-            //     for(int c = 0; c < numColunas; c++)
-            //     {
-            //         if (Existe(l, c))
-            //             dgv[c, l].Value = atualColuna.Valor;
-            //         else
-            //             dgv[c, l].Value = 0;
-
-
-            //     }
-            // }
 
         }
 
