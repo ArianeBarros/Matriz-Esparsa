@@ -72,6 +72,7 @@
             this.dgvB.Name = "dgvB";
             this.dgvB.Size = new System.Drawing.Size(332, 193);
             this.dgvB.TabIndex = 0;
+            this.dgvB.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvB_CellContentClick);
             // 
             // dgvA
             // 
@@ -80,6 +81,7 @@
             this.dgvA.Name = "dgvA";
             this.dgvA.Size = new System.Drawing.Size(332, 193);
             this.dgvA.TabIndex = 1;
+            this.dgvA.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellContentClick);
             // 
             // dgvResultado
             // 
@@ -262,6 +264,7 @@
             this.btnDeletar.TabIndex = 8;
             this.btnDeletar.Text = "Deletar";
             this.btnDeletar.UseVisualStyleBackColor = true;
+            this.btnDeletar.Click += new System.EventHandler(this.btnDeletar_Click);
             // 
             // btnIncluir
             // 

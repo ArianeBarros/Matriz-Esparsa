@@ -56,12 +56,17 @@ namespace apMatrizEsparsa
 
         public void InserirElemento(int l, int c, double v)
         {
-            if (c < 0 || l < 0)
-                throw new Exception("Índice inválido!!");
+            if (c < 0 || l < 0 || l > numLinhas || c > numColunas)
+            {
+                MessageBox.Show("Índice inválido!!");
+                return;
+            }
+                
+                //throw new Exception("Índice inválido!!");
 
             if (v == 0)
                 return; // arrumar
-
+                       
             if (Existe(l, c))
                 atualColuna.Valor = v;
             else
@@ -75,6 +80,14 @@ namespace apMatrizEsparsa
                 novaCelula.Direita = atualLinha;
                 qtd++;
             }
+        }
+
+        public double? ValorDe(int l, int c)
+        {
+            if (Existe(l, c))
+                return atualColuna.Valor;
+            else
+                return null;
         }
         
 
@@ -132,6 +145,25 @@ namespace apMatrizEsparsa
                 }
             }
 
+        }
+
+        public bool Excluir(int l, int c)
+        {
+            bool seExcluiu = false;
+
+            for(int i = 0; i < l; i++)
+            {
+                for(int j = 0; j < c; j++)
+                {
+                    if(Existe(l, c))
+                    {
+                        anteriorColuna.Direita = atualColuna.Direita;
+                        anteriorLinha.Abaixo = atualLinha.Abaixo;                        
+                    }
+                }
+            }
+
+            return seExcluiu;
         }
 
         public ListaCruzada SomarMatrizes(ListaCruzada listaB)

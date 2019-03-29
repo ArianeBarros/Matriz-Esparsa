@@ -63,7 +63,46 @@ namespace apMatrizEsparsa
 
         private void btnSomarColuna_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void btnDeletar_Click(object sender, EventArgs e)
+        {
+            if (txtLinha.Text == "" || txtColuna.Text == "")
+            {
+                MessageBox.Show("Selecione uma célula para a exclusão!!");
+                return;
+            }            
+         
+             if (matrizA.Excluir(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text)))
+                 matrizA.Listar(dgvA);
+            else
+            {
+                if (matrizB.Excluir(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text)))
+                    matrizB.Listar(dgvB);
+                else
+                    MessageBox.Show("Erro ao excluir!");
+            }            
+        }
+
+        private void dgvA_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
+                return;
+
+            txtColuna.Text = e.ColumnIndex + "";
+            txtLinha.Text = e.RowIndex + "";
+            txtValor.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+        }
+
+        private void dgvB_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (matrizB.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
+                return;
+
+            txtColuna.Text = e.ColumnIndex + "";
+            txtLinha.Text = e.RowIndex + "";
+            txtValor.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
         }
     }
 }
