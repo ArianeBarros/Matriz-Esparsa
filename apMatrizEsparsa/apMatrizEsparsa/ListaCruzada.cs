@@ -83,7 +83,7 @@ namespace apMatrizEsparsa
             else
                 return null;
         }
-        
+
 
         public bool Existe(int l, int c)
         {
@@ -112,18 +112,13 @@ namespace apMatrizEsparsa
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Direita;
-            }
-                
-            
+            }           
 
             while (atualColuna.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Abaixo;
-            }
-               
-            
-
+            }     
 
             Celula procurada = atualLinha;
             if (procurada.Coluna != c || procurada.Linha != l)
@@ -134,9 +129,6 @@ namespace apMatrizEsparsa
 
         public void Listar(DataGridView dgv)
         {
-            dgv.ColumnCount = numColunas;
-            dgv.RowCount = numLinhas;
-
             for (int l = 0; l < numLinhas; l++)
             {
                 for (int c = 0; c < numColunas; c++)
@@ -147,7 +139,6 @@ namespace apMatrizEsparsa
                         dgv[c , l ].Value = 0;
                 }
             }
-
         }
 
         public bool Excluir(int l, int c)
@@ -170,6 +161,55 @@ namespace apMatrizEsparsa
 
 
             return soma;
+        }
+
+        public void ExcluirMatriz()
+        {
+
+        }
+
+        public void SomarColuna(double v, int qualColuna)
+        {
+            atualLinha = cabeca;
+            atualColuna = cabeca;                     
+           
+            while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
+            {
+                atualColuna.Valor = atualColuna.Valor + v;
+                atualColuna = atualColuna.Direita;
+            }
+            
+        }
+
+        public void SomarLinha(double v, int qualLinha)
+        {
+            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)
+            {
+                atualLinha.Valor = atualLinha.Valor + v;
+                atualLinha = atualLinha.Abaixo;
+            }
+        }
+
+        public void MultiplicarColuna(double v, int qualColuna)
+        {
+            atualLinha = cabeca;
+            atualColuna = cabeca;
+
+            while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
+            {
+                atualColuna.Valor = atualColuna.Valor + v;
+                atualColuna = atualColuna.Direita;
+            }
+
+        }
+
+        public void MultiplicarLinha(double v, int qualLinha)
+        {
+            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)
+            {
+                atualLinha.Valor = atualLinha.Valor + v;
+                atualLinha = atualLinha.Abaixo;
+            }
         }
     }
 
