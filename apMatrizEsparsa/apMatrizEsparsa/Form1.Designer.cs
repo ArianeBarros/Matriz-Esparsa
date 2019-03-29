@@ -55,14 +55,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtErro = new System.Windows.Forms.TextBox();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
+            this.txtErro = new System.Windows.Forms.ToolStrip();
+            this.lblErro = new System.Windows.Forms.ToolStripLabel();
+            this.rgbQualMatriz = new System.Windows.Forms.RadioButton();
+            this.rgb = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.txtErro.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvB
@@ -81,6 +85,7 @@
             this.dgvA.Name = "dgvA";
             this.dgvA.Size = new System.Drawing.Size(332, 193);
             this.dgvA.TabIndex = 1;
+            this.dgvA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellClick);
             this.dgvA.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellContentClick);
             // 
             // dgvResultado
@@ -239,6 +244,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.rgb);
+            this.groupBox3.Controls.Add(this.rgbQualMatriz);
             this.groupBox3.Controls.Add(this.btnDeletar);
             this.groupBox3.Controls.Add(this.btnIncluir);
             this.groupBox3.Controls.Add(this.btnAlterar);
@@ -285,9 +292,11 @@
             this.btnAlterar.TabIndex = 6;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // txtColuna
             // 
+            this.txtColuna.Enabled = false;
             this.txtColuna.Location = new System.Drawing.Point(122, 144);
             this.txtColuna.Name = "txtColuna";
             this.txtColuna.Size = new System.Drawing.Size(190, 20);
@@ -295,6 +304,7 @@
             // 
             // txtLinha
             // 
+            this.txtLinha.Enabled = false;
             this.txtLinha.Location = new System.Drawing.Point(122, 93);
             this.txtLinha.Name = "txtLinha";
             this.txtLinha.Size = new System.Drawing.Size(190, 20);
@@ -337,23 +347,53 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Valor: ";
             // 
-            // txtErro
-            // 
-            this.txtErro.Enabled = false;
-            this.txtErro.Location = new System.Drawing.Point(1, 660);
-            this.txtErro.Name = "txtErro";
-            this.txtErro.Size = new System.Drawing.Size(1193, 20);
-            this.txtErro.TabIndex = 14;
-            // 
             // dlgAbrir
             // 
             this.dlgAbrir.FileName = "openFileDialog1";
+            // 
+            // txtErro
+            // 
+            this.txtErro.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtErro.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblErro});
+            this.txtErro.Location = new System.Drawing.Point(0, 627);
+            this.txtErro.Name = "txtErro";
+            this.txtErro.Size = new System.Drawing.Size(1185, 25);
+            this.txtErro.TabIndex = 14;
+            // 
+            // lblErro
+            // 
+            this.lblErro.Name = "lblErro";
+            this.lblErro.Size = new System.Drawing.Size(31, 22);
+            this.lblErro.Text = "Erro:";
+            // 
+            // rgbQualMatriz
+            // 
+            this.rgbQualMatriz.AutoSize = true;
+            this.rgbQualMatriz.Location = new System.Drawing.Point(32, 181);
+            this.rgbQualMatriz.Name = "rgbQualMatriz";
+            this.rgbQualMatriz.Size = new System.Drawing.Size(85, 17);
+            this.rgbQualMatriz.TabIndex = 9;
+            this.rgbQualMatriz.TabStop = true;
+            this.rgbQualMatriz.Text = "radioButton1";
+            this.rgbQualMatriz.UseVisualStyleBackColor = true;
+            // 
+            // rgb
+            // 
+            this.rgb.AutoSize = true;
+            this.rgb.Location = new System.Drawing.Point(229, 181);
+            this.rgb.Name = "rgb";
+            this.rgb.Size = new System.Drawing.Size(85, 17);
+            this.rgb.TabIndex = 10;
+            this.rgb.TabStop = true;
+            this.rgb.Text = "radioButton2";
+            this.rgb.UseVisualStyleBackColor = true;
             // 
             // frmMatriz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1113, 616);
+            this.ClientSize = new System.Drawing.Size(1185, 652);
             this.Controls.Add(this.txtErro);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -375,6 +415,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.txtErro.ResumeLayout(false);
+            this.txtErro.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,8 +451,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtErro;
         private System.Windows.Forms.OpenFileDialog dlgAbrir;
+        private System.Windows.Forms.ToolStrip txtErro;
+        private System.Windows.Forms.ToolStripLabel lblErro;
+        private System.Windows.Forms.RadioButton rgb;
+        private System.Windows.Forms.RadioButton rgbQualMatriz;
     }
 }
 

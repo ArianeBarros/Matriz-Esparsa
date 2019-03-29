@@ -10,18 +10,19 @@ namespace apMatrizEsparsa
 {
     class ListaCruzada
     {
-        Celula cabeca, atualLinha, anteriorLinha, atualColuna, anteriorColuna;
+        public const int INICIOCABECA = -1;
+        Celula cabeca, atualLinha, atualColuna, anteriorLinha, anteriorColuna;
         int numLinhas, numColunas;
         int qtd;
         
         public ListaCruzada()
         {
-            cabeca = new Celula(-1, -1, 0, null, null); ;
+            cabeca = new Celula(INICIOCABECA, INICIOCABECA, 0, null, null); ;
             qtd = 0;
         }
         public ListaCruzada(int linhas, int colunas)
         {
-            cabeca = new Celula(-1, -1, 0, null, null);
+            cabeca = new Celula(INICIOCABECA, INICIOCABECA, 0, null, null);
             qtd = 0;
             numLinhas = linhas;
             numColunas = colunas;
@@ -29,7 +30,7 @@ namespace apMatrizEsparsa
             Celula atual = cabeca;
             for (int i = 0; i < linhas; i++)
             {
-                Celula novaCelula = new Celula(i, -1, 0, null, null);
+                Celula novaCelula = new Celula(i, INICIOCABECA, 0, null, null);
                 atual.Abaixo = novaCelula;
                 atual = novaCelula;
                 atual.Direita = atual;
@@ -39,7 +40,7 @@ namespace apMatrizEsparsa
             atual = cabeca;
             for (int i = 0; i < colunas; i++)
             {
-                Celula novaCelula = new Celula(-1, i, 0, null, null);
+                Celula novaCelula = new Celula(INICIOCABECA, i, 0, null, null);
                 atual.Direita = novaCelula;
                 atual = novaCelula;
                 atual.Abaixo = atual;
@@ -56,14 +57,6 @@ namespace apMatrizEsparsa
 
         public void InserirElemento(int l, int c, double v)
         {
-            if (c < 0 || l < 0 || l > numLinhas || c > numColunas)
-            {
-                MessageBox.Show("Índice inválido!!");
-                return;
-            }
-                
-                //throw new Exception("Índice inválido!!");
-
             if (v == 0)
                 return; // arrumar
                        
@@ -73,11 +66,12 @@ namespace apMatrizEsparsa
             {
                 Celula novaCelula = new Celula(l, c, v, null, null);
 
-                anteriorColuna.Abaixo = novaCelula;
-                novaCelula.Abaixo = atualColuna;
+                novaCelula.Abaixo = atualColuna.Abaixo;
+                atualColuna.Abaixo = novaCelula;
 
-                anteriorLinha.Direita = novaCelula;
-                novaCelula.Direita = atualLinha;
+                novaCelula.Direita = atualLinha.Direita;
+                atualLinha.Direita = novaCelula;
+
                 qtd++;
             }
         }
@@ -93,40 +87,49 @@ namespace apMatrizEsparsa
 
         public bool Existe(int l, int c)
         {
-
             atualLinha = cabeca;
-            anteriorLinha = null;
             atualColuna = cabeca;
-            anteriorColuna = null;
+            anteriorLinha = cabeca;
+            anteriorColuna = cabeca;
 
-            while (atualLinha.Linha != l && atualLinha.Abaixo != atualLinha)
+            while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
             {
                 anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Abaixo;
             }
+                
+            
 
-            while (atualLinha.Coluna != c && atualLinha.Direita != atualLinha)
+            while (atualLinha.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != INICIOCABECA)
             {
                 anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Direita;
             }
+                
+            
 
-            while (atualColuna.Coluna != c && atualColuna.Direita != atualColuna)
+            while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Direita;
             }
+                
+            
 
-            while (atualColuna.Linha != l && atualColuna.Abaixo != atualColuna)
+            while (atualColuna.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Abaixo;
             }
+               
+            
 
-            if (atualColuna.Linha != l || atualColuna.Coluna != c)
+
+            Celula procurada = atualLinha;
+            if (procurada.Coluna != c || procurada.Linha != l)
                 return false;
-            else
-                return true;
+
+            return true;
         }
 
         public void Listar(DataGridView dgv)
@@ -141,7 +144,7 @@ namespace apMatrizEsparsa
                     if (Existe(l, c))
                         dgv[c, l].Value = atualColuna.Valor;
                     else
-                        dgv[c, l].Value = 0;
+                        dgv[c , l ].Value = 0;
                 }
             }
 
@@ -149,21 +152,16 @@ namespace apMatrizEsparsa
 
         public bool Excluir(int l, int c)
         {
-            bool seExcluiu = false;
-
-            for(int i = 0; i < l; i++)
+            if (Existe(l, c))
             {
-                for(int j = 0; j < c; j++)
-                {
-                    if(Existe(l, c))
-                    {
-                        anteriorColuna.Direita = atualColuna.Direita;
-                        anteriorLinha.Abaixo = atualLinha.Abaixo;                        
-                    }
-                }
+                anteriorColuna.Abaixo = atualColuna.Abaixo;
+                anteriorLinha.Direita = atualLinha.Direita;
+                qtd--;
+                
+                return true;
             }
 
-            return seExcluiu;
+            return false;
         }
 
         public ListaCruzada SomarMatrizes(ListaCruzada listaB)

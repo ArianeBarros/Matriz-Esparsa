@@ -41,11 +41,25 @@ namespace apMatrizEsparsa
 
                 lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5)));
 
+                bool teveErro = false;
+
                 while (!arquivo.EndOfStream)
                 {
                     Celula lida = Celula.LerRegistro(arquivo);
+
+                    if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha > lista.NumLinhas || lida.Coluna > lista.NumColunas)
+                    {
+                        teveErro = true;
+                        txtErro.Items.Add($"({lida.Linha}, {lida.Coluna})");
+                        continue;
+                    }
+
                     lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);
                 }
+
+                if (teveErro)
+                    lblErro.Text = "Células com index não suportados pela matriz: ";
+
                 arquivo.Close();
                 lista.Listar(dgv);
             }
@@ -68,9 +82,9 @@ namespace apMatrizEsparsa
 
         private void btnDeletar_Click(object sender, EventArgs e)
         {
-            if (txtLinha.Text == "" || txtColuna.Text == "")
+            /*if (txtValor.Text == "" || txtValor.Text == "0")
             {
-                MessageBox.Show("Selecione uma célula para a exclusão!!");
+                txtErro.Text = "Erro: Selecione uma célula para a exclusão!!";
                 return;
             }            
          
@@ -81,8 +95,11 @@ namespace apMatrizEsparsa
                 if (matrizB.Excluir(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text)))
                     matrizB.Listar(dgvB);
                 else
-                    MessageBox.Show("Erro ao excluir!");
-            }            
+                    txtErro.Text = "Erro ao excluir!";
+            }    */
+            matrizA.Excluir(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text));
+            matrizA.Listar(dgvA);
+
         }
 
         private void dgvA_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -103,6 +120,24 @@ namespace apMatrizEsparsa
             txtColuna.Text = e.ColumnIndex + "";
             txtLinha.Text = e.RowIndex + "";
             txtValor.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+        }
+
+        private void dgvA_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
+              //  return;
+
+            txtColuna.Text = e.ColumnIndex + "";
+            txtLinha.Text = e.RowIndex + "";
+            txtValor.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+        }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            txtColuna.Enabled = false;
+            txtLinha.Enabled = false;
+            matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(txtValor.Text));
+            matrizA.Listar(dgvA);
         }
     }
 }
