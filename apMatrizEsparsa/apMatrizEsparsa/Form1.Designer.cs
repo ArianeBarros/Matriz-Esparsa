@@ -367,6 +367,7 @@
             this.rgbMB.TabStop = true;
             this.rgbMB.Text = "Matriz B";
             this.rgbMB.UseVisualStyleBackColor = true;
+            this.rgbMB.Visible = false;
             this.rgbMB.CheckedChanged += new System.EventHandler(this.rgbMB_CheckedChanged);
             // 
             // rgbMA
@@ -380,6 +381,7 @@
             this.rgbMA.TabStop = true;
             this.rgbMA.Text = "Matriz A";
             this.rgbMA.UseVisualStyleBackColor = true;
+            this.rgbMA.Visible = false;
             this.rgbMA.CheckedChanged += new System.EventHandler(this.rgbMA_CheckedChanged);
             // 
             // dlgAbrir

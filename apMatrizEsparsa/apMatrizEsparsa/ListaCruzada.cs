@@ -159,13 +159,36 @@ namespace apMatrizEsparsa
         {
             ListaCruzada soma = null;
 
+            for (int l = 0; l < numLinhas; l++)
+            {
+                for (int c = 0; c < numColunas; c++)
+                {
+                    if (Existe(l, c) && listaB.Existe(l, c))                    
+                        soma.InserirElemento(l, c, atualLinha.Valor + listaB.atualLinha.Valor); 
+                    else
+                    {
+                        if (Existe(l, c))
+                            soma.InserirElemento(l, c, atualLinha.Valor);
+                        else
+                            soma.InserirElemento(l, c, listaB.atualLinha.Valor);
+                    }
+                }
+            }
 
             return soma;
         }
 
         public void ExcluirMatriz()
         {
-
+            for (int l = 0; l < numLinhas; l++)
+            {
+                for (int c = 0; c < numColunas; c++)
+                {
+                    if (!Excluir(l, c))
+                        throw new Exception("Erro ao excluir matriz");
+                }
+            }
+            
         }
 
         public void SomarColuna(double v, int qualColuna)
@@ -174,19 +197,27 @@ namespace apMatrizEsparsa
             atualColuna = cabeca;                     
            
             while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
-            {
-                atualColuna.Valor = atualColuna.Valor + v;
                 atualColuna = atualColuna.Direita;
-            }
             
+            while(atualLinha.Abaixo != cabeca)
+            {
+                atualLinha.Valor = atualLinha.Valor + v;
+                atualLinha = atualLinha.Abaixo;
+            }            
         }
 
         public void SomarLinha(double v, int qualLinha)
         {
+            atualLinha = cabeca;
+            atualColuna = cabeca;
+
             while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)
-            {
-                atualLinha.Valor = atualLinha.Valor + v;
                 atualLinha = atualLinha.Abaixo;
+            
+            while(atualColuna.Direita != atualColuna)
+            {
+                atualColuna.Valor = atualColuna.Valor + v;
+                atualColuna = atualColuna.Direita;
             }
         }
 
@@ -196,20 +227,30 @@ namespace apMatrizEsparsa
             atualColuna = cabeca;
 
             while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
-            {
-                atualColuna.Valor = atualColuna.Valor + v;
                 atualColuna = atualColuna.Direita;
+            
+            while(atualLinha.Abaixo != cabeca)
+            {
+                atualLinha.Valor = atualLinha.Valor * v;
+                atualLinha = atualLinha.Abaixo;
+
             }
 
         }
 
         public void MultiplicarLinha(double v, int qualLinha)
         {
-            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)
-            {
-                atualLinha.Valor = atualLinha.Valor + v;
+            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)             
                 atualLinha = atualLinha.Abaixo;
+
+            atualColuna = cabeca;
+
+            while(atualColuna.Direita != cabeca)
+            {
+                atualColuna.Valor = atualColuna.Valor * v;
+                atualColuna = atualColuna.Direita;
             }
+
         }
     }
 

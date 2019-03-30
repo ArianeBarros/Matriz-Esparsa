@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+/*
+ * Verificar se o valor de uma célula é 0, se for impedir sua criação(não deve ser guardada)
+ * Somar matrizes
+ * Somar linha com k
+ * Somar coluna com k
+ * Multiplicar matrizes
+ * Multiplicar linha por k
+ * Multiplicar coluna por k
+ * */
+
 namespace apMatrizEsparsa
 {
     public partial class frmMatriz : Form
@@ -37,6 +47,9 @@ namespace apMatrizEsparsa
 
                 dgv.ColumnCount = lista.NumColunas;
                 dgv.RowCount = lista.NumLinhas;
+
+                rgbMA.Visible = true;
+                rgbMB.Visible = true;
 
                 cbxColuna.Visible = true;
                 cbxLinha.Visible = true;
@@ -82,6 +95,10 @@ namespace apMatrizEsparsa
 
         private void btnSomarColuna_Click(object sender, EventArgs e)
         {
+
+            if (txtSomar.Text == "" || int.Parse(txtSomar.Text) == 0)
+                return;
+
             if (rgbMA.Checked)
             {
                 matrizA.SomarColuna(int.Parse(txtSomar.Text), Convert.ToInt32(cbxColuna.SelectedItem));
@@ -119,7 +136,7 @@ namespace apMatrizEsparsa
 
         private void dgvA_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
+            if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == null)
                 return;
 
             txtColuna.Text = e.ColumnIndex + "";
@@ -129,7 +146,7 @@ namespace apMatrizEsparsa
 
         private void dgvB_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (matrizB.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
+            if (matrizB.ValorDe(e.RowIndex, e.ColumnIndex) == null)
                 return;
 
             txtColuna.Text = e.ColumnIndex + "";
