@@ -193,17 +193,29 @@ namespace apMatrizEsparsa
 
         public void SomarColuna(double v, int qualColuna)
         {
-            atualLinha = cabeca;
             atualColuna = cabeca;                     
            
-            while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
+            while (atualColuna.Coluna != qualColuna && atualColuna.Direita != atualColuna)
                 atualColuna = atualColuna.Direita;
-            
-            while(atualLinha.Abaixo != cabeca)
+
+            //atualColuna = atualColuna.Abaixo;
+
+            for(int i = 0; i < NumLinhas; i++)
             {
-                atualLinha.Valor = atualLinha.Valor + v;
-                atualLinha = atualLinha.Abaixo;
-            }            
+                if(atualColuna.Abaixo.Linha != i)
+                {
+                    InserirElemento(i, qualColuna, v);
+                    atualColuna = atualColuna.Abaixo;
+                }
+                else
+                {
+                    if (v + atualColuna.Valor == 0)
+                        Excluir(i, qualColuna);
+
+                    InserirElemento(i, qualColuna, v + atualColuna.Abaixo.Valor);
+                }
+                
+            }
         }
 
         public void SomarLinha(double v, int qualLinha)

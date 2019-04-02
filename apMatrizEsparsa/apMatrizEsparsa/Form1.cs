@@ -95,12 +95,14 @@ namespace apMatrizEsparsa
 
         private void btnSomarColuna_Click(object sender, EventArgs e)
         {
-
+            Application.DoEvents();
             if (txtSomar.Text == "" || int.Parse(txtSomar.Text) == 0)
                 return;
 
             if (rgbMA.Checked)
             {
+                dgvResultado.ColumnCount = dgvA.ColumnCount;
+                dgvResultado.RowCount = dgvA.RowCount;
                 matrizA.SomarColuna(int.Parse(txtSomar.Text), Convert.ToInt32(cbxColuna.SelectedItem));
                 matrizA.Listar(dgvResultado);
             }                
@@ -213,53 +215,11 @@ namespace apMatrizEsparsa
             }
         }
 
-        private void btnMultiplicarColuna_Click(object sender, EventArgs e)
-        {
-            if (txtMultiplicar.Text == "" || txtMultiplicar.Text == 0 + "")   //pode ser double
-            {
-                if(rgbMA.Checked)
-                    matrizA.Listar(dgvResultado);
-                else
-                    matrizB.Listar(dgvResultado);
-            }                
-
-            if (rgbMA.Checked)
-            {
-                matrizA.MultiplicarColuna(double.Parse(txtMultiplicar.Text), Convert.ToInt32(cbxColuna.SelectedItem));
-                matrizA.Listar(dgvResultado);
-            }
-            else
-            {
-                matrizB.MultiplicarColuna(double.Parse(txtMultiplicar.Text), Convert.ToInt32(cbxColuna.SelectedItem));
-                matrizB.Listar(dgvResultado);
-            }
-        }
+        
 
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
            
-        }
-
-        private void btnMultiplicarLinha_Click(object sender, EventArgs e)
-        {
-            if (txtMultiplicar.Text == "" || txtMultiplicar.Text == 0 + "")   //pode ser double
-            {
-                if (rgbMA.Checked)
-                    matrizA.Listar(dgvResultado);
-                else
-                    matrizB.Listar(dgvResultado);
-            }
-
-            if (rgbMA.Checked)
-            {
-                matrizA.MultiplicarLinha(double.Parse(txtMultiplicar.Text), Convert.ToInt32(cbxLinha.SelectedItem));
-                matrizA.Listar(dgvResultado);
-            }
-            else
-            {
-                matrizB.MultiplicarLinha(double.Parse(txtMultiplicar.Text), Convert.ToInt32(cbxLinha.SelectedItem));
-                matrizB.Listar(dgvResultado);
-            }
         }
 
         private void rgbMA_CheckedChanged(object sender, EventArgs e)
