@@ -11,7 +11,7 @@ namespace apMatrizEsparsa
     class ListaCruzada
     {
         public const int INICIOCABECA = -1;
-        Celula cabeca, atualLinha, atualColuna, anteriorLinha, anteriorColuna;
+        Celula cabeca, esquerda, cima, anteriorLinha, anteriorColuna;
         int numLinhas, numColunas;
         int qtd;
         
@@ -52,67 +52,73 @@ namespace apMatrizEsparsa
         public int Qtd { get => qtd;}
         public int NumLinhas { get => numLinhas; }
         public int NumColunas { get => numColunas; }
-        public Celula Cabeca { get => cabeca; }      
+        public Celula Cabeca { get => cabeca; }
+        
 
         public void InserirElemento(int l, int c, double v)
         {
             if (v == 0)
                 return; // arrumar
-
+                       
             if (Existe(l, c))
-                atualColuna.Valor = v;
+                cima.Abaixo.Valor = v;
             else
             {
                 Celula novaCelula = new Celula(l, c, v, null, null);
 
-                novaCelula.Abaixo = atualColuna.Abaixo;
-                atualColuna.Abaixo = novaCelula;
+                novaCelula.Abaixo = cima.Abaixo;
+                cima.Abaixo = novaCelula;
 
-                novaCelula.Direita = atualLinha.Direita;
-                atualLinha.Direita = novaCelula;
+                novaCelula.Direita = esquerda.Direita;
+                esquerda.Direita = novaCelula;
 
                 qtd++;
             }
         }
+
         public double? ValorDe(int l, int c)
         {
             if (Existe(l, c))
-                return atualColuna.Valor;
+                return cima.Valor;
             else
                 return null;
         }
+
+
         public bool Existe(int l, int c)
         {
-            atualLinha = cabeca;
-            atualColuna = cabeca;
-            anteriorLinha = cabeca;
-            anteriorColuna = cabeca;
+            esquerda = cabeca;
+            cima = cabeca;
+            //anteriorLinha = cabeca;
+            //anteriorColuna = cabeca;
 
-            while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
+            while (esquerda.Linha < l && esquerda.Abaixo != esquerda)
             {
-                anteriorLinha = atualLinha;
-                atualLinha = atualLinha.Abaixo;
+                //anteriorLinha = esquerda;
+                esquerda = esquerda.Abaixo;
             }
 
-            while (atualLinha.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != INICIOCABECA)
+            while (esquerda.Direita.Coluna < c && esquerda.Direita != esquerda && esquerda.Direita.Coluna != INICIOCABECA)
             {
-                anteriorLinha = atualLinha;
-                atualLinha = atualLinha.Direita;
-            }
+               // anteriorLinha = esquerda;
+                esquerda = esquerda.Direita;
+            }               
 
-            while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
+            while (cima.Coluna < c && cima.Direita != cima)
             {
-                anteriorColuna = atualColuna;
-                atualColuna = atualColuna.Direita;
-            }
+                //anteriorColuna = cima;
+                cima = cima.Direita;
+            }           
 
-            while (atualColuna.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
+            
+
+            while (cima.Abaixo.Linha < l && cima.Abaixo != cabeca && cima.Abaixo.Linha != INICIOCABECA)
             {
-                anteriorColuna = atualColuna;
-                atualColuna = atualColuna.Abaixo;
-            }
+                //anteriorColuna = cima;
+                cima = cima.Abaixo;
+            }     
 
-            Celula procurada = atualLinha;
+            Celula procurada = esquerda.Direita;
             if (procurada.Coluna != c || procurada.Linha != l)
                 return false;
 
@@ -126,7 +132,7 @@ namespace apMatrizEsparsa
                 for (int c = 0; c < numColunas; c++)
                 {
                     if (Existe(l, c))
-                        dgv[c, l].Value = atualColuna.Valor;
+                        dgv[c, l].Value = cima.Abaixo.Valor;
                     else
                         dgv[c , l ].Value = 0;
                 }
@@ -137,8 +143,9 @@ namespace apMatrizEsparsa
         {
             if (Existe(l, c))
             {
-                anteriorColuna.Abaixo = atualColuna.Abaixo;
-                anteriorLinha.Direita = atualLinha.Direita;
+                
+                anteriorColuna.Abaixo = cima.Abaixo;
+                anteriorLinha.Direita = esquerda.Direita;
                 qtd--;
                 
                 return true;
@@ -156,105 +163,51 @@ namespace apMatrizEsparsa
                 for (int c = 0; c < numColunas; c++)
                 {
                     if (Existe(l, c) && listaB.Existe(l, c))                    
-                        soma.InserirElemento(l, c, atualLinha.Valor + listaB.atualLinha.Valor); 
+                        soma.InserirElemento(l, c, esquerda.Valor + listaB.esquerda.Valor); 
                     else
                     {
                         if (Existe(l, c))
-                            soma.InserirElemento(l, c, atualLinha.Valor);
+                            soma.InserirElemento(l, c, esquerda.Valor);
                         else
-                            soma.InserirElemento(l, c, listaB.atualLinha.Valor);
+                            soma.InserirElemento(l, c, listaB.esquerda.Valor);
                     }
                 }
             }
 
             return soma;
         }
-
+        
         public void ExcluirMatriz()
         {
-            for (int l = 0; l < numLinhas; l++)
-            {
-                for (int c = 0; c < numColunas; c++)
-                {
-                    if (!Excluir(l, c))
-                        throw new Exception("Erro ao excluir matriz");
-                }
-            }
-            
+            cabeca = null;
+            qtd = 0;
         }
 
         public void SomarColuna(double v, int qualColuna)
         {
-            atualColuna = cabeca;                     
+            cima = cabeca;                     
            
-            while (atualColuna.Coluna != qualColuna && atualColuna.Direita != atualColuna)
-                atualColuna = atualColuna.Direita;
+            while (cima.Coluna != qualColuna && cima.Direita != cima)
+                cima = cima.Direita;
 
             //atualColuna = atualColuna.Abaixo;
 
             for(int i = 0; i < NumLinhas; i++)
             {
-                if(atualColuna.Abaixo.Linha != i)
+                if(cima.Abaixo.Linha != i)
                 {
                     InserirElemento(i, qualColuna, v);
-                    atualColuna = atualColuna.Abaixo;
+                    cima = cima.Abaixo;
                 }
                 else
                 {
-                    if (v + atualColuna.Valor == 0)
+                    if (v + cima.Valor == 0)
                         Excluir(i, qualColuna);
 
-                    InserirElemento(i, qualColuna, v + atualColuna.Abaixo.Valor);
+                    InserirElemento(i, qualColuna, v + cima.Abaixo.Valor);
                 }
                 
             }
-        }
-
-        public void SomarLinha(double v, int qualLinha)
-        {
-            atualLinha = cabeca;
-            atualColuna = cabeca;
-
-            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)
-                atualLinha = atualLinha.Abaixo;
-            
-            while(atualColuna.Direita != atualColuna)
-            {
-                atualColuna.Valor = atualColuna.Valor + v;
-                atualColuna = atualColuna.Direita;
-            }
-        }
-
-        public void MultiplicarColuna(double v, int qualColuna)
-        {
-            atualLinha = cabeca;
-            atualColuna = cabeca;
-
-            while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
-                atualColuna = atualColuna.Direita;
-            
-            while(atualLinha.Abaixo != cabeca)
-            {
-                atualLinha.Valor = atualLinha.Valor * v;
-                atualLinha = atualLinha.Abaixo;
-
-            }
-
-        }
-
-        public void MultiplicarLinha(double v, int qualLinha)
-        {
-            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)             
-                atualLinha = atualLinha.Abaixo;
-
-            atualColuna = cabeca;
-
-            while(atualColuna.Direita != cabeca)
-            {
-                atualColuna.Valor = atualColuna.Valor * v;
-                atualColuna = atualColuna.Direita;
-            }
-
         }
     }
 
