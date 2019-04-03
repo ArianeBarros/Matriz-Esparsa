@@ -15,8 +15,6 @@ using System.IO;
  * Somar linha com k
  * Somar coluna com k
  * Multiplicar matrizes
- * Multiplicar linha por k
- * Multiplicar coluna por k
  * */
 
 namespace apMatrizEsparsa
@@ -54,6 +52,13 @@ namespace apMatrizEsparsa
                 cbxColuna.Visible = true;
                 cbxLinha.Visible = true;
 
+                btnIncluir.Enabled = true;
+                btnDeletar.Enabled = true;
+                btnAlterar.Enabled = true;
+                btnSomarColuna.Enabled = true;
+                btnSomarLinha.Enabled = true;
+                btnExcluirMatriz.Enabled = true;
+
                 bool teveErro = false;
 
                 while (!arquivo.EndOfStream)
@@ -84,11 +89,16 @@ namespace apMatrizEsparsa
 
         private void btnLerMatrizB_Click(object sender, EventArgs e)
         {
+            btnSomarMatrizes.Enabled = true;
+            btnMultiplicarMatrizes.Enabled = true;
+
             LerMatriz(ref matrizB, dgvB);
         }
 
         private void btnSomarMatrizes_Click(object sender, EventArgs e)
         {
+            
+
             ListaCruzada soma = matrizA.SomarMatrizes(matrizB);
             soma.Listar(dgvResultado);
         }
@@ -242,6 +252,11 @@ namespace apMatrizEsparsa
             cbxLinha.Items.Clear();
             for (int i = 0; i < matrizB.NumLinhas; i++)
                 cbxLinha.Items.Add(i + "");
+        }
+
+        private void frmMatriz_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -52,14 +52,13 @@ namespace apMatrizEsparsa
         public int Qtd { get => qtd;}
         public int NumLinhas { get => numLinhas; }
         public int NumColunas { get => numColunas; }
-        public Celula Cabeca { get => cabeca; }
-        
+        public Celula Cabeca { get => cabeca; }      
 
         public void InserirElemento(int l, int c, double v)
         {
             if (v == 0)
                 return; // arrumar
-                       
+
             if (Existe(l, c))
                 atualColuna.Valor = v;
             else
@@ -75,7 +74,6 @@ namespace apMatrizEsparsa
                 qtd++;
             }
         }
-
         public double? ValorDe(int l, int c)
         {
             if (Existe(l, c))
@@ -83,8 +81,6 @@ namespace apMatrizEsparsa
             else
                 return null;
         }
-
-
         public bool Existe(int l, int c)
         {
             atualLinha = cabeca;
@@ -97,28 +93,24 @@ namespace apMatrizEsparsa
                 anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Abaixo;
             }
-                
-            
 
             while (atualLinha.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != INICIOCABECA)
             {
                 anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Direita;
             }
-                
-            
 
             while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Direita;
-            }           
+            }
 
             while (atualColuna.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Abaixo;
-            }     
+            }
 
             Celula procurada = atualLinha;
             if (procurada.Coluna != c || procurada.Linha != l)

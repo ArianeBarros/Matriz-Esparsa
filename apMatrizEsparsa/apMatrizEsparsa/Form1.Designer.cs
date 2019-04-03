@@ -33,13 +33,20 @@
             this.dgvResultado = new System.Windows.Forms.DataGridView();
             this.btnMultiplicarMatrizes = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSomarMatrizes = new System.Windows.Forms.Button();
             this.btnLerMatrizA = new System.Windows.Forms.Button();
             this.btnLerMatrizB = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbxColuna = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbxLinha = new System.Windows.Forms.ComboBox();
+            this.btnSomarColuna = new System.Windows.Forms.Button();
+            this.rgbMB = new System.Windows.Forms.RadioButton();
             this.txtSomar = new System.Windows.Forms.TextBox();
-            this.btnSomarMatrizes = new System.Windows.Forms.Button();
+            this.rgbMA = new System.Windows.Forms.RadioButton();
             this.btnSomarLinha = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
@@ -50,17 +57,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.rgbMB = new System.Windows.Forms.RadioButton();
-            this.rgbMA = new System.Windows.Forms.RadioButton();
             this.dlgAbrir = new System.Windows.Forms.OpenFileDialog();
             this.txtErro = new System.Windows.Forms.ToolStrip();
             this.lblErro = new System.Windows.Forms.ToolStripLabel();
             this.btnExcluirMatriz = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cbxLinha = new System.Windows.Forms.ComboBox();
-            this.cbxColuna = new System.Windows.Forms.ComboBox();
-            this.btnSomarColuna = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
@@ -99,6 +99,7 @@
             // 
             // btnMultiplicarMatrizes
             // 
+            this.btnMultiplicarMatrizes.Enabled = false;
             this.btnMultiplicarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMultiplicarMatrizes.Location = new System.Drawing.Point(6, 172);
             this.btnMultiplicarMatrizes.Name = "btnMultiplicarMatrizes";
@@ -118,6 +119,18 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Multiplicar";
+            // 
+            // btnSomarMatrizes
+            // 
+            this.btnSomarMatrizes.Enabled = false;
+            this.btnSomarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSomarMatrizes.Location = new System.Drawing.Point(6, 19);
+            this.btnSomarMatrizes.Name = "btnSomarMatrizes";
+            this.btnSomarMatrizes.Size = new System.Drawing.Size(233, 108);
+            this.btnSomarMatrizes.TabIndex = 6;
+            this.btnSomarMatrizes.Text = "Somar Matrizes";
+            this.btnSomarMatrizes.UseVisualStyleBackColor = true;
+            this.btnSomarMatrizes.Click += new System.EventHandler(this.btnSomarMatrizes_Click);
             // 
             // btnLerMatrizA
             // 
@@ -160,6 +173,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Somar";
             // 
+            // cbxColuna
+            // 
+            this.cbxColuna.FormattingEnabled = true;
+            this.cbxColuna.Location = new System.Drawing.Point(99, 196);
+            this.cbxColuna.Name = "cbxColuna";
+            this.cbxColuna.Size = new System.Drawing.Size(77, 21);
+            this.cbxColuna.TabIndex = 18;
+            this.cbxColuna.Visible = false;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -170,6 +192,51 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "Valor: ";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(26, 196);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 20);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Coluna: ";
+            // 
+            // cbxLinha
+            // 
+            this.cbxLinha.FormattingEnabled = true;
+            this.cbxLinha.Location = new System.Drawing.Point(88, 160);
+            this.cbxLinha.Name = "cbxLinha";
+            this.cbxLinha.Size = new System.Drawing.Size(77, 21);
+            this.cbxLinha.TabIndex = 17;
+            this.cbxLinha.Visible = false;
+            // 
+            // btnSomarColuna
+            // 
+            this.btnSomarColuna.Enabled = false;
+            this.btnSomarColuna.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSomarColuna.Location = new System.Drawing.Point(30, 41);
+            this.btnSomarColuna.Name = "btnSomarColuna";
+            this.btnSomarColuna.Size = new System.Drawing.Size(82, 53);
+            this.btnSomarColuna.TabIndex = 5;
+            this.btnSomarColuna.Text = "Somar Coluna";
+            this.btnSomarColuna.UseVisualStyleBackColor = true;
+            this.btnSomarColuna.Click += new System.EventHandler(this.btnSomarColuna_Click);
+            // 
+            // rgbMB
+            // 
+            this.rgbMB.AutoSize = true;
+            this.rgbMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rgbMB.Location = new System.Drawing.Point(152, 113);
+            this.rgbMB.Name = "rgbMB";
+            this.rgbMB.Size = new System.Drawing.Size(85, 24);
+            this.rgbMB.TabIndex = 10;
+            this.rgbMB.TabStop = true;
+            this.rgbMB.Text = "Matriz B";
+            this.rgbMB.UseVisualStyleBackColor = true;
+            this.rgbMB.Visible = false;
+            this.rgbMB.CheckedChanged += new System.EventHandler(this.rgbMB_CheckedChanged);
+            // 
             // txtSomar
             // 
             this.txtSomar.Location = new System.Drawing.Point(108, 237);
@@ -177,19 +244,23 @@
             this.txtSomar.Size = new System.Drawing.Size(149, 20);
             this.txtSomar.TabIndex = 9;
             // 
-            // btnSomarMatrizes
+            // rgbMA
             // 
-            this.btnSomarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarMatrizes.Location = new System.Drawing.Point(6, 19);
-            this.btnSomarMatrizes.Name = "btnSomarMatrizes";
-            this.btnSomarMatrizes.Size = new System.Drawing.Size(233, 108);
-            this.btnSomarMatrizes.TabIndex = 6;
-            this.btnSomarMatrizes.Text = "Somar Matrizes";
-            this.btnSomarMatrizes.UseVisualStyleBackColor = true;
-            this.btnSomarMatrizes.Click += new System.EventHandler(this.btnSomarMatrizes_Click);
+            this.rgbMA.AutoSize = true;
+            this.rgbMA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rgbMA.Location = new System.Drawing.Point(30, 113);
+            this.rgbMA.Name = "rgbMA";
+            this.rgbMA.Size = new System.Drawing.Size(85, 24);
+            this.rgbMA.TabIndex = 9;
+            this.rgbMA.TabStop = true;
+            this.rgbMA.Text = "Matriz A";
+            this.rgbMA.UseVisualStyleBackColor = true;
+            this.rgbMA.Visible = false;
+            this.rgbMA.CheckedChanged += new System.EventHandler(this.rgbMA_CheckedChanged);
             // 
             // btnSomarLinha
             // 
+            this.btnSomarLinha.Enabled = false;
             this.btnSomarLinha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSomarLinha.Location = new System.Drawing.Point(176, 41);
             this.btnSomarLinha.Name = "btnSomarLinha";
@@ -198,6 +269,16 @@
             this.btnSomarLinha.Text = "Somar Linha";
             this.btnSomarLinha.UseVisualStyleBackColor = true;
             this.btnSomarLinha.Click += new System.EventHandler(this.btnSomarLinha_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(26, 160);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 20);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Linha: ";
             // 
             // groupBox3
             // 
@@ -219,6 +300,7 @@
             // 
             // btnDeletar
             // 
+            this.btnDeletar.Enabled = false;
             this.btnDeletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeletar.Location = new System.Drawing.Point(132, 224);
             this.btnDeletar.Name = "btnDeletar";
@@ -230,6 +312,7 @@
             // 
             // btnIncluir
             // 
+            this.btnIncluir.Enabled = false;
             this.btnIncluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIncluir.Location = new System.Drawing.Point(32, 224);
             this.btnIncluir.Name = "btnIncluir";
@@ -241,6 +324,7 @@
             // 
             // btnAlterar
             // 
+            this.btnAlterar.Enabled = false;
             this.btnAlterar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAlterar.Location = new System.Drawing.Point(229, 222);
             this.btnAlterar.Name = "btnAlterar";
@@ -303,34 +387,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Valor: ";
             // 
-            // rgbMB
-            // 
-            this.rgbMB.AutoSize = true;
-            this.rgbMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbMB.Location = new System.Drawing.Point(152, 113);
-            this.rgbMB.Name = "rgbMB";
-            this.rgbMB.Size = new System.Drawing.Size(85, 24);
-            this.rgbMB.TabIndex = 10;
-            this.rgbMB.TabStop = true;
-            this.rgbMB.Text = "Matriz B";
-            this.rgbMB.UseVisualStyleBackColor = true;
-            this.rgbMB.Visible = false;
-            this.rgbMB.CheckedChanged += new System.EventHandler(this.rgbMB_CheckedChanged);
-            // 
-            // rgbMA
-            // 
-            this.rgbMA.AutoSize = true;
-            this.rgbMA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbMA.Location = new System.Drawing.Point(30, 113);
-            this.rgbMA.Name = "rgbMA";
-            this.rgbMA.Size = new System.Drawing.Size(85, 24);
-            this.rgbMA.TabIndex = 9;
-            this.rgbMA.TabStop = true;
-            this.rgbMA.Text = "Matriz A";
-            this.rgbMA.UseVisualStyleBackColor = true;
-            this.rgbMA.Visible = false;
-            this.rgbMA.CheckedChanged += new System.EventHandler(this.rgbMA_CheckedChanged);
-            // 
             // dlgAbrir
             // 
             this.dlgAbrir.FileName = "openFileDialog1";
@@ -353,6 +409,7 @@
             // 
             // btnExcluirMatriz
             // 
+            this.btnExcluirMatriz.Enabled = false;
             this.btnExcluirMatriz.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExcluirMatriz.Location = new System.Drawing.Point(1009, 372);
             this.btnExcluirMatriz.Name = "btnExcluirMatriz";
@@ -361,55 +418,6 @@
             this.btnExcluirMatriz.Text = "Excluir Matriz";
             this.btnExcluirMatriz.UseVisualStyleBackColor = true;
             this.btnExcluirMatriz.Click += new System.EventHandler(this.btnLiberarMatriz_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(26, 160);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 20);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Linha: ";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(26, 196);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 20);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Coluna: ";
-            // 
-            // cbxLinha
-            // 
-            this.cbxLinha.FormattingEnabled = true;
-            this.cbxLinha.Location = new System.Drawing.Point(88, 160);
-            this.cbxLinha.Name = "cbxLinha";
-            this.cbxLinha.Size = new System.Drawing.Size(77, 21);
-            this.cbxLinha.TabIndex = 17;
-            this.cbxLinha.Visible = false;
-            // 
-            // cbxColuna
-            // 
-            this.cbxColuna.FormattingEnabled = true;
-            this.cbxColuna.Location = new System.Drawing.Point(99, 196);
-            this.cbxColuna.Name = "cbxColuna";
-            this.cbxColuna.Size = new System.Drawing.Size(77, 21);
-            this.cbxColuna.TabIndex = 18;
-            this.cbxColuna.Visible = false;
-            // 
-            // btnSomarColuna
-            // 
-            this.btnSomarColuna.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarColuna.Location = new System.Drawing.Point(30, 41);
-            this.btnSomarColuna.Name = "btnSomarColuna";
-            this.btnSomarColuna.Size = new System.Drawing.Size(82, 53);
-            this.btnSomarColuna.TabIndex = 5;
-            this.btnSomarColuna.Text = "Somar Coluna";
-            this.btnSomarColuna.UseVisualStyleBackColor = true;
-            this.btnSomarColuna.Click += new System.EventHandler(this.btnSomarColuna_Click);
             // 
             // frmMatriz
             // 
@@ -428,6 +436,7 @@
             this.Controls.Add(this.dgvB);
             this.Name = "frmMatriz";
             this.Text = "Matriz Esparsa";
+            this.Load += new System.EventHandler(this.frmMatriz_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).EndInit();
