@@ -14,7 +14,7 @@ namespace apMatrizEsparsa
         Celula cabeca, atualLinha, atualColuna, anteriorLinha, anteriorColuna;
         int numLinhas, numColunas;
         int qtd;
-        
+
         public ListaCruzada()
         {
             cabeca = new Celula(INICIOCABECA, INICIOCABECA, 0, null, null); ;
@@ -26,7 +26,7 @@ namespace apMatrizEsparsa
             qtd = 0;
             numLinhas = linhas;
             numColunas = colunas;
-            
+
             Celula atual = cabeca;
             for (int i = 0; i < linhas; i++)
             {
@@ -49,10 +49,10 @@ namespace apMatrizEsparsa
         }
 
 
-        public int Qtd { get => qtd;}
+        public int Qtd { get => qtd; }
         public int NumLinhas { get => numLinhas; }
         public int NumColunas { get => numColunas; }
-        public Celula Cabeca { get => cabeca; }      
+        public Celula Cabeca { get => cabeca; }
 
         public void InserirElemento(int l, int c, double v)
         {
@@ -60,7 +60,7 @@ namespace apMatrizEsparsa
                 return; // arrumar
 
             if (Existe(l, c))
-                atualColuna.Valor = v;
+                atualColuna.Abaixo.Valor = v;
             else
             {
                 Celula novaCelula = new Celula(l, c, v, null, null);
@@ -74,12 +74,12 @@ namespace apMatrizEsparsa
                 qtd++;
             }
         }
-        public double? ValorDe(int l, int c)
+        public double ValorDe(int l, int c)
         {
             if (Existe(l, c))
-                return atualColuna.Valor;
+                return atualColuna.Abaixo.Valor;
             else
-                return null;
+                return 0;
         }
         public bool Existe(int l, int c)
         {
@@ -94,7 +94,7 @@ namespace apMatrizEsparsa
                 atualLinha = atualLinha.Abaixo;
             }
 
-            while (atualLinha.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != INICIOCABECA)
+            while (atualLinha.Direita.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != INICIOCABECA)
             {
                 anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Direita;
@@ -106,13 +106,13 @@ namespace apMatrizEsparsa
                 atualColuna = atualColuna.Direita;
             }
 
-            while (atualColuna.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
+            while (atualColuna.Abaixo.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
             {
                 anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Abaixo;
             }
 
-            Celula procurada = atualLinha;
+            Celula procurada = atualLinha.Direita;
             if (procurada.Coluna != c || procurada.Linha != l)
                 return false;
 
@@ -126,9 +126,9 @@ namespace apMatrizEsparsa
                 for (int c = 0; c < numColunas; c++)
                 {
                     if (Existe(l, c))
-                        dgv[c, l].Value = atualColuna.Valor;
+                        dgv[c, l].Value = atualColuna.Abaixo.Valor;
                     else
-                        dgv[c , l ].Value = 0;
+                        dgv[c, l].Value = 0;
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace apMatrizEsparsa
                 anteriorColuna.Abaixo = atualColuna.Abaixo;
                 anteriorLinha.Direita = atualLinha.Direita;
                 qtd--;
-                
+
                 return true;
             }
 
@@ -149,113 +149,65 @@ namespace apMatrizEsparsa
 
         public ListaCruzada SomarMatrizes(ListaCruzada listaB)
         {
-            ListaCruzada soma = null;
+            ListaCruzada soma = new ListaCruzada(numLinhas, numColunas);
 
             for (int l = 0; l < numLinhas; l++)
             {
                 for (int c = 0; c < numColunas; c++)
                 {
-                    if (Existe(l, c) && listaB.Existe(l, c))                    
-                        soma.InserirElemento(l, c, atualLinha.Valor + listaB.atualLinha.Valor); 
-                    else
-                    {
-                        if (Existe(l, c))
-                            soma.InserirElemento(l, c, atualLinha.Valor);
-                        else
-                            soma.InserirElemento(l, c, listaB.atualLinha.Valor);
-                    }
+                    double somaValores = ValorDe(l, c) + listaB.ValorDe(l, c);
+                    if(somaValores != 0)
+                        soma.InserirElemento(l,c, somaValores);
                 }
             }
 
             return soma;
         }
+        public ListaCruzada MultiplicarMatrizes(ListaCruzada listaB)
+        {
+            ListaCruzada produto = new ListaCruzada(listaB.numLinhas, numColunas);
+
+            for (int l = 0; l < produto.NumLinhas; l++)
+            {
+                for (int c = 0; c < produto.NumColunas; c++)
+                {
+                    //double resultado = ValorDe(l, c)  * listaB.ValorDe(l,c) + ValorDe(l);
+                }
+            }
+
+            return produto;
+        }
 
         public void ExcluirMatriz()
         {
-            for (int l = 0; l < numLinhas; l++)
-            {
-                for (int c = 0; c < numColunas; c++)
-                {
-                    if (!Excluir(l, c))
-                        throw new Exception("Erro ao excluir matriz");
-                }
-            }
-            
+            cabeca = null;
+            qtd = 0;
         }
 
         public void SomarColuna(double v, int qualColuna)
         {
-            atualColuna = cabeca;                     
-           
+            atualColuna = cabeca;
+
             while (atualColuna.Coluna != qualColuna && atualColuna.Direita != atualColuna)
                 atualColuna = atualColuna.Direita;
 
-            //atualColuna = atualColuna.Abaixo;
-
-            for(int i = 0; i < NumLinhas; i++)
+            for (int i = 0; i < NumLinhas; i++)
             {
-                if(atualColuna.Abaixo.Linha != i)
+                if (atualColuna.Abaixo.Linha != i)
                 {
                     InserirElemento(i, qualColuna, v);
-                    atualColuna = atualColuna.Abaixo;
                 }
                 else
                 {
-                    if (v + atualColuna.Valor == 0)
+                    if (v + atualColuna.Abaixo.Valor == 0)
                         Excluir(i, qualColuna);
 
                     InserirElemento(i, qualColuna, v + atualColuna.Abaixo.Valor);
                 }
-                
-            }
-        }
-
-        public void SomarLinha(double v, int qualLinha)
-        {
-            atualLinha = cabeca;
-            atualColuna = cabeca;
-
-            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)
-                atualLinha = atualLinha.Abaixo;
-            
-            while(atualColuna.Direita != atualColuna)
-            {
-                atualColuna.Valor = atualColuna.Valor + v;
-                atualColuna = atualColuna.Direita;
-            }
-        }
-
-        public void MultiplicarColuna(double v, int qualColuna)
-        {
-            atualLinha = cabeca;
-            atualColuna = cabeca;
-
-            while (atualColuna.Coluna < qualColuna && atualColuna.Direita != atualColuna)
-                atualColuna = atualColuna.Direita;
-            
-            while(atualLinha.Abaixo != cabeca)
-            {
-                atualLinha.Valor = atualLinha.Valor * v;
-                atualLinha = atualLinha.Abaixo;
 
             }
-
         }
-
-        public void MultiplicarLinha(double v, int qualLinha)
-        {
-            while (atualLinha.Linha < qualLinha && atualLinha.Abaixo != atualLinha)             
-                atualLinha = atualLinha.Abaixo;
-
-            atualColuna = cabeca;
-
-            while(atualColuna.Direita != cabeca)
-            {
-                atualColuna.Valor = atualColuna.Valor * v;
-                atualColuna = atualColuna.Direita;
-            }
-
-        }
+        
     }
 
 }

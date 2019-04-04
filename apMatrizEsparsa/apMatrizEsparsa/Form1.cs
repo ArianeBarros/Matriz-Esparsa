@@ -50,13 +50,11 @@ namespace apMatrizEsparsa
                 rgbMB.Visible = true;
 
                 cbxColuna.Visible = true;
-                cbxLinha.Visible = true;
 
                 btnIncluir.Enabled = true;
                 btnDeletar.Enabled = true;
                 btnAlterar.Enabled = true;
                 btnSomarColuna.Enabled = true;
-                btnSomarLinha.Enabled = true;
                 btnExcluirMatriz.Enabled = true;
 
                 bool teveErro = false;
@@ -97,7 +95,8 @@ namespace apMatrizEsparsa
 
         private void btnSomarMatrizes_Click(object sender, EventArgs e)
         {
-            
+            dgvResultado.RowCount = dgvA.RowCount;
+            dgvResultado.ColumnCount = dgvA.ColumnCount;
 
             ListaCruzada soma = matrizA.SomarMatrizes(matrizB);
             soma.Listar(dgvResultado);
@@ -148,7 +147,7 @@ namespace apMatrizEsparsa
 
         private void dgvA_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == null)
+            if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
                 return;
 
             txtColuna.Text = e.ColumnIndex + "";
@@ -158,7 +157,7 @@ namespace apMatrizEsparsa
 
         private void dgvB_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (matrizB.ValorDe(e.RowIndex, e.ColumnIndex) == null)
+            if (matrizB.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
                 return;
 
             txtColuna.Text = e.ColumnIndex + "";
@@ -207,23 +206,7 @@ namespace apMatrizEsparsa
         {
             matrizA.ExcluirMatriz();
         }
-
-        private void btnSomarLinha_Click(object sender, EventArgs e)
-        {
-            if (txtSomar.Text == "" || txtSomar.Text == 0 + "")   //pode ser double
-                matrizA.Listar(dgvResultado);
-
-            if(rgbMA.Checked)
-            {
-                matrizA.SomarLinha(double.Parse(txtSomar.Text), Convert.ToInt32(cbxLinha.SelectedItem));
-                matrizA.Listar(dgvResultado);
-            }
-            else
-            {
-                matrizB.SomarLinha(double.Parse(txtSomar.Text), Convert.ToInt32(cbxLinha.SelectedItem));
-                matrizB.Listar(dgvResultado);
-            }
-        }
+        
 
         
 
@@ -237,10 +220,6 @@ namespace apMatrizEsparsa
             cbxColuna.Items.Clear();
             for (int i = 0; i < matrizA.NumColunas; i++)
                 cbxColuna.Items.Add(i + "");
-
-            cbxLinha.Items.Clear();
-            for (int i = 0; i < matrizA.NumLinhas; i++)
-                cbxLinha.Items.Add(i + "");
         }
 
         private void rgbMB_CheckedChanged(object sender, EventArgs e)
@@ -248,10 +227,6 @@ namespace apMatrizEsparsa
             cbxColuna.Items.Clear();
             for (int i = 0; i < matrizB.NumColunas; i++)
                 cbxColuna.Items.Add(i + "");
-
-            cbxLinha.Items.Clear();
-            for (int i = 0; i < matrizB.NumLinhas; i++)
-                cbxLinha.Items.Add(i + "");
         }
 
         private void frmMatriz_Load(object sender, EventArgs e)

@@ -40,13 +40,10 @@
             this.cbxColuna = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.cbxLinha = new System.Windows.Forms.ComboBox();
             this.btnSomarColuna = new System.Windows.Forms.Button();
             this.rgbMB = new System.Windows.Forms.RadioButton();
             this.txtSomar = new System.Windows.Forms.TextBox();
             this.rgbMA = new System.Windows.Forms.RadioButton();
-            this.btnSomarLinha = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
@@ -159,13 +156,10 @@
             this.groupBox2.Controls.Add(this.cbxColuna);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.cbxLinha);
             this.groupBox2.Controls.Add(this.btnSomarColuna);
             this.groupBox2.Controls.Add(this.rgbMB);
             this.groupBox2.Controls.Add(this.txtSomar);
             this.groupBox2.Controls.Add(this.rgbMA);
-            this.groupBox2.Controls.Add(this.btnSomarLinha);
-            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Location = new System.Drawing.Point(414, 372);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(285, 286);
@@ -202,20 +196,11 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Coluna: ";
             // 
-            // cbxLinha
-            // 
-            this.cbxLinha.FormattingEnabled = true;
-            this.cbxLinha.Location = new System.Drawing.Point(88, 160);
-            this.cbxLinha.Name = "cbxLinha";
-            this.cbxLinha.Size = new System.Drawing.Size(77, 21);
-            this.cbxLinha.TabIndex = 17;
-            this.cbxLinha.Visible = false;
-            // 
             // btnSomarColuna
             // 
             this.btnSomarColuna.Enabled = false;
             this.btnSomarColuna.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarColuna.Location = new System.Drawing.Point(30, 41);
+            this.btnSomarColuna.Location = new System.Drawing.Point(94, 41);
             this.btnSomarColuna.Name = "btnSomarColuna";
             this.btnSomarColuna.Size = new System.Drawing.Size(82, 53);
             this.btnSomarColuna.TabIndex = 5;
@@ -257,28 +242,6 @@
             this.rgbMA.UseVisualStyleBackColor = true;
             this.rgbMA.Visible = false;
             this.rgbMA.CheckedChanged += new System.EventHandler(this.rgbMA_CheckedChanged);
-            // 
-            // btnSomarLinha
-            // 
-            this.btnSomarLinha.Enabled = false;
-            this.btnSomarLinha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarLinha.Location = new System.Drawing.Point(176, 41);
-            this.btnSomarLinha.Name = "btnSomarLinha";
-            this.btnSomarLinha.Size = new System.Drawing.Size(90, 53);
-            this.btnSomarLinha.TabIndex = 4;
-            this.btnSomarLinha.Text = "Somar Linha";
-            this.btnSomarLinha.UseVisualStyleBackColor = true;
-            this.btnSomarLinha.Click += new System.EventHandler(this.btnSomarLinha_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(26, 160);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 20);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Linha: ";
             // 
             // groupBox3
             // 
@@ -465,7 +428,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtSomar;
         private System.Windows.Forms.Button btnSomarMatrizes;
-        private System.Windows.Forms.Button btnSomarLinha;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnDeletar;
         private System.Windows.Forms.Button btnIncluir;
@@ -482,9 +444,7 @@
         private System.Windows.Forms.RadioButton rgbMB;
         private System.Windows.Forms.RadioButton rgbMA;
         private System.Windows.Forms.Button btnExcluirMatriz;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox cbxLinha;
         private System.Windows.Forms.ComboBox cbxColuna;
         private System.Windows.Forms.Button btnSomarColuna;
     }
