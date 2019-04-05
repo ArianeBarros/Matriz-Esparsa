@@ -165,24 +165,21 @@ namespace apMatrizEsparsa
         }
         public ListaCruzada MultiplicarMatrizes(ListaCruzada listaB)
         {
-            ListaCruzada produto = new ListaCruzada(listaB.numLinhas, numColunas);
+            ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
             double resultado = 0;
             for (int l = 0; l < numLinhas; l++)
             {
-                for (int c = 0; c < NumColunas; c++)
+                for (int c = 0; c < listaB.NumColunas; c++)
                 {
-                    for(int col = 0; col < listaB.NumColunas; col++)
-                    {
-                        resultado = ValorDe(l, col) * listaB.ValorDe(l, col);
-                       // ValorDe(l, col + 1) * listaB.ValorDe(l + 1, col);
-                    }
-                    
-
-
-                    if (resultado != 0)
-                        produto.InserirElemento(l, c, resultado);
-
                     resultado = 0;
+                    for (int col = 0; col < numColunas; col++)
+                    {
+                        resultado += ValorDe(l, col) * listaB.ValorDe(col, c);
+                    }
+
+                        if (resultado != 0)
+                            produto.InserirElemento(l, c, resultado);
+                    
                 }
             }
             
