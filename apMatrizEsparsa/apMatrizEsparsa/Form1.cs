@@ -23,6 +23,8 @@ namespace apMatrizEsparsa
     {
         ListaCruzada matrizA;
         ListaCruzada matrizB;
+        
+
         public frmMatriz()
         {
             InitializeComponent();
@@ -31,31 +33,44 @@ namespace apMatrizEsparsa
         private void btnLerMatrizA_Click(object sender, EventArgs e)
         {
             LerMatriz(ref matrizA, dgvA);
+            rgbMA.Checked = true;
+            rgbMA.Enabled = true;
         }
 
+        private void IniciarControles()
+        {
+            btnIncluir.Enabled = true;
+            btnDeletar.Enabled = true;
+            btnAlterar.Enabled = true;
+            btnSomarColuna.Enabled = true;
+            btnExcluirMatriz.Enabled = true;
+
+            btnSomarMatrizes.Enabled = true;
+            btnMultiplicarMatrizes.Enabled = true;
+
+            numeroUpDown.Enabled = true;
+            valorUpDown.Enabled = true;
+            cbxColuna.Enabled = true;
+        }
+
+        private void AjustarDataGridView(DataGridView qualDgv, int numLinhas, int numColunas)
+        {
+            qualDgv.ColumnCount = numColunas;
+            qualDgv.RowCount = numLinhas;
+
+            qualDgv.AllowUserToResizeColumns = false;
+            qualDgv.AllowUserToResizeRows = false;
+        }
         private void LerMatriz(ref ListaCruzada lista, DataGridView dgv)
         {
             if (dlgAbrir.ShowDialog() == DialogResult.OK)
             {
                 var arquivo = new StreamReader(dlgAbrir.FileName);
-
                 string numeroLinhaColuna = arquivo.ReadLine();
-
                 lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5)));
 
-                dgv.ColumnCount = lista.NumColunas;
-                dgv.RowCount = lista.NumLinhas;
-
-                rgbMA.Visible = true;
-                rgbMB.Visible = true;
-
-                cbxColuna.Visible = true;
-
-                btnIncluir.Enabled = true;
-                btnDeletar.Enabled = true;
-                btnAlterar.Enabled = true;
-                btnSomarColuna.Enabled = true;
-                btnExcluirMatriz.Enabled = true;
+                AjustarDataGridView(dgv, lista.NumLinhas, lista.NumColunas);
+                IniciarControles();
 
                 bool teveErro = false;
 
@@ -78,54 +93,53 @@ namespace apMatrizEsparsa
 
                 arquivo.Close();
                 lista.Listar(dgv);
-                for (int i = 0; i < lista.NumColunas ; i++)
-                    dgv.Columns[i].HeaderText = i.ToString();
-                for (int i = 0; i < lista.NumLinhas; i++)
-                    dgv.Rows[i].HeaderCell.Value = i.ToString();
             }
         }
 
         private void btnLerMatrizB_Click(object sender, EventArgs e)
         {
-            btnSomarMatrizes.Enabled = true;
-            btnMultiplicarMatrizes.Enabled = true;
-
             LerMatriz(ref matrizB, dgvB);
+            rgbMB.Checked = true;
+            rgbMB.Enabled = true;
         }
 
         private void btnSomarMatrizes_Click(object sender, EventArgs e)
         {
-            dgvResultado.RowCount = dgvA.RowCount;
-            dgvResultado.ColumnCount = dgvA.ColumnCount;
+            if(matrizA == null || matrizB == null)
+            {
+                MessageBox.Show("Para somar matrizes é necessário duas desta", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                dgvResultado.RowCount = dgvA.RowCount;
+                dgvResultado.ColumnCount = dgvA.ColumnCount;
 
-            ListaCruzada soma = matrizA.SomarMatrizes(matrizB);
-            soma.Listar(dgvResultado);
+                ListaCruzada soma = matrizA.SomarMatrizes(matrizB);
+                soma.Listar(dgvResultado);
+            }
         }
 
         private void btnSomarColuna_Click(object sender, EventArgs e)
         {
-            Application.DoEvents();
-            if (txtSomar.Text == "" || int.Parse(txtSomar.Text) == 0)
-                return;
-
+            if (cbxColuna.SelectedItem == null)
+                MessageBox.Show("Selecione uma coluna", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
             if (rgbMA.Checked)
             {
-                dgvResultado.ColumnCount = dgvA.ColumnCount;
-                dgvResultado.RowCount = dgvA.RowCount;
-                matrizA.SomarColuna(int.Parse(txtSomar.Text), Convert.ToInt32(cbxColuna.SelectedItem));
-                matrizA.Listar(dgvResultado);
+                matrizA.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));
+                matrizA.Listar(dgvA);
             }                
             else
             {
-                matrizB.SomarColuna(int.Parse(txtSomar.Text), Convert.ToInt32(cbxColuna.SelectedItem));
-                matrizB.Listar(dgvResultado);
+                matrizB.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));
+                matrizB.Listar(dgvB);
             }
                
         }
 
         private void btnDeletar_Click(object sender, EventArgs e)
         {
-            if (txtValor.Text == "" || txtValor.Text == "0")
+            if (numeroUpDown.Text == "" || numeroUpDown.Text == "0")
             {
                 txtErro.Text = "Erro: Selecione uma célula para a exclusão!!";
                 return;
@@ -152,7 +166,7 @@ namespace apMatrizEsparsa
 
             txtColuna.Text = e.ColumnIndex + "";
             txtLinha.Text = e.RowIndex + "";
-            txtValor.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+            numeroUpDown.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
         }
 
         private void dgvB_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -162,14 +176,14 @@ namespace apMatrizEsparsa
 
             txtColuna.Text = e.ColumnIndex + "";
             txtLinha.Text = e.RowIndex + "";
-            txtValor.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+            numeroUpDown.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
         }
 
         private void dgvA_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             txtColuna.Text = e.ColumnIndex + "";
             txtLinha.Text = e.RowIndex + "";
-            txtValor.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+            numeroUpDown.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
@@ -177,42 +191,62 @@ namespace apMatrizEsparsa
 
             if(rgbMA.Checked)
             {
-                matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(txtValor.Text));
+                matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
             }
             else
             {
-                matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(txtValor.Text));
+                matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
                 matrizB.Listar(dgvB);
             }
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
-
+            if (txtLinha.Text == "" || txtColuna.Text == "")
+                MessageBox.Show("Preencha os dados corretamente", "Dados incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            if (int.Parse(txtLinha.Text) < 0 || int.Parse(txtColuna.Text) < 0)
+                MessageBox.Show("Index do valor inválido", "Erro ao inserir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
             if(rgbMA.Checked)
             {
-                matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(txtValor.Text));
+                matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
             }
             else
             {
-                matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(txtValor.Text));
+                matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
                 matrizB.Listar(dgvB);
             }           
         }
 
         private void btnLiberarMatriz_Click(object sender, EventArgs e)
         {
-            matrizA.ExcluirMatriz();
+            if (rgbMA.Checked)
+            {
+                matrizA.ExcluirMatriz();
+                dgvA.Rows.Clear() ;
+            }
+            else
+            if (rgbMB.Checked)
+            {
+                matrizB.ExcluirMatriz();
+            }
         }     
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
-            dgvResultado.ColumnCount = dgvB.ColumnCount;
-            dgvResultado.RowCount = dgvA.RowCount;
+            if (matrizA == null || matrizB == null)
+            {
+                MessageBox.Show("Para somar matrizes é necessário duas desta", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else {
+                dgvResultado.ColumnCount = dgvB.ColumnCount;
+                dgvResultado.RowCount = dgvA.RowCount;
 
-            ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
-            result.Listar(dgvResultado);
+                ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
+                result.Listar(dgvResultado);
+            }
         }
 
         private void rgbMA_CheckedChanged(object sender, EventArgs e)
@@ -231,14 +265,21 @@ namespace apMatrizEsparsa
 
         private void frmMatriz_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void dgvB_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             txtColuna.Text = e.ColumnIndex + "";
             txtLinha.Text = e.RowIndex + "";
-            txtValor.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+            numeroUpDown.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+        }
+
+        private void dgvA_CellEndEdit_1(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView qual = (DataGridView)sender;
+            numeroUpDown.Value = Convert.ToDecimal(qual[e.ColumnIndex, e.RowIndex].Value) ;
+            btnAlterar.PerformClick();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace apMatrizEsparsa
     class ListaCruzada
     {
         public const int INICIOCABECA = -1;
-        Celula cabeca, atualLinha, atualColuna, anteriorLinha, anteriorColuna;
+        Celula cabeca, atualLinha, atualColuna;
         int numLinhas, numColunas;
         int qtd;
 
@@ -85,30 +85,24 @@ namespace apMatrizEsparsa
         {
             atualLinha = cabeca;
             atualColuna = cabeca;
-            anteriorLinha = cabeca;
-            anteriorColuna = cabeca;
 
             while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
             {
-                anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Abaixo;
             }
 
             while (atualLinha.Direita.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != INICIOCABECA)
             {
-                anteriorLinha = atualLinha;
                 atualLinha = atualLinha.Direita;
             }
 
             while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
             {
-                anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Direita;
             }
 
             while (atualColuna.Abaixo.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != INICIOCABECA)
             {
-                anteriorColuna = atualColuna;
                 atualColuna = atualColuna.Abaixo;
             }
 
@@ -137,8 +131,10 @@ namespace apMatrizEsparsa
         {
             if (Existe(l, c))
             {
-                anteriorColuna.Abaixo = atualColuna.Abaixo;
-                anteriorLinha.Direita = atualLinha.Direita;
+                Celula desejada = atualLinha.Direita;
+
+                atualColuna.Abaixo = desejada.Abaixo;
+                atualLinha.Direita = desejada.Direita;
                 qtd--;
 
                 return true;
@@ -195,24 +191,19 @@ namespace apMatrizEsparsa
 
         public void SomarColuna(double v, int qualColuna)
         {
-            atualColuna = cabeca;
-
-            while (atualColuna.Coluna != qualColuna && atualColuna.Direita != atualColuna)
-                atualColuna = atualColuna.Direita;
-
             for (int i = 0; i < NumLinhas; i++)
             {
-                if (atualColuna.Abaixo.Linha != i)
-                {
+                if (ValorDe(i, qualColuna) == 0)
                     InserirElemento(i, qualColuna, v);
-                }
                 else
                 {
-                    if (v + atualColuna.Abaixo.Valor == 0)
+                    Celula desejada = atualLinha.Direita;
+                    if (desejada.Valor + v == 0)
                         Excluir(i, qualColuna);
-
-                    InserirElemento(i, qualColuna, v + atualColuna.Abaixo.Valor);
+                    else
+                        InserirElemento(i, qualColuna, v + desejada.Valor);
                 }
+                    
 
             }
         }
