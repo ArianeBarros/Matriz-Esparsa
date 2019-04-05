@@ -208,7 +208,11 @@ namespace apMatrizEsparsa
         }     
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
-           
+            dgvResultado.ColumnCount = dgvB.ColumnCount;
+            dgvResultado.RowCount = dgvA.RowCount;
+
+            ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
+            result.Listar(dgvResultado);
         }
 
         private void rgbMA_CheckedChanged(object sender, EventArgs e)
