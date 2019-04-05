@@ -205,11 +205,7 @@ namespace apMatrizEsparsa
         private void btnLiberarMatriz_Click(object sender, EventArgs e)
         {
             matrizA.ExcluirMatriz();
-        }
-        
-
-        
-
+        }     
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
            
@@ -232,6 +228,13 @@ namespace apMatrizEsparsa
         private void frmMatriz_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvB_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtColuna.Text = e.ColumnIndex + "";
+            txtLinha.Text = e.RowIndex + "";
+            txtValor.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
         }
     }
 }
