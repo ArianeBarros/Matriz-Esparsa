@@ -28,26 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvB = new System.Windows.Forms.DataGridView();
             this.dgvA = new System.Windows.Forms.DataGridView();
             this.dgvResultado = new System.Windows.Forms.DataGridView();
-            this.btnMultiplicarMatrizes = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.valorUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnSomarColuna = new System.Windows.Forms.Button();
+            this.cbxColuna = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnSomarMatrizes = new System.Windows.Forms.Button();
             this.btnLerMatrizA = new System.Windows.Forms.Button();
             this.btnLerMatrizB = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.valorUpDown = new System.Windows.Forms.NumericUpDown();
-            this.cbxColuna = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.btnSomarColuna = new System.Windows.Forms.Button();
             this.rgbMB = new System.Windows.Forms.RadioButton();
             this.rgbMA = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numeroUpDown = new System.Windows.Forms.NumericUpDown();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
@@ -60,16 +59,16 @@
             this.txtErro = new System.Windows.Forms.ToolStrip();
             this.lblErro = new System.Windows.Forms.ToolStripLabel();
             this.btnExcluirMatriz = new System.Windows.Forms.Button();
-            this.numeroUpDown = new System.Windows.Forms.NumericUpDown();
+            this.btnMultiplicarMatrizes = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.txtErro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeroUpDown)).BeginInit();
+            this.txtErro.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvB
@@ -79,24 +78,24 @@
             this.dgvB.AllowUserToResizeColumns = false;
             this.dgvB.AllowUserToResizeRows = false;
             this.dgvB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvB.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvB.ColumnHeadersVisible = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvB.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvB.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvB.Location = new System.Drawing.Point(367, 100);
+            this.dgvB.MultiSelect = false;
             this.dgvB.Name = "dgvB";
             this.dgvB.RowHeadersVisible = false;
+            this.dgvB.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvB.Size = new System.Drawing.Size(332, 193);
             this.dgvB.TabIndex = 0;
             this.dgvB.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvB_CellClick);
-            this.dgvB.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvB_CellContentClick);
             this.dgvB.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellEndEdit_1);
             // 
             // dgvA
@@ -106,24 +105,24 @@
             this.dgvA.AllowUserToResizeColumns = false;
             this.dgvA.AllowUserToResizeRows = false;
             this.dgvA.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvA.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvA.ColumnHeadersVisible = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvA.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvA.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvA.Location = new System.Drawing.Point(12, 100);
+            this.dgvA.MultiSelect = false;
             this.dgvA.Name = "dgvA";
             this.dgvA.RowHeadersVisible = false;
+            this.dgvA.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvA.Size = new System.Drawing.Size(332, 193);
             this.dgvA.TabIndex = 1;
             this.dgvA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellClick);
-            this.dgvA.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellContentClick);
             this.dgvA.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellEndEdit_1);
             // 
             // dgvResultado
@@ -133,54 +132,107 @@
             this.dgvResultado.AllowUserToResizeColumns = false;
             this.dgvResultado.AllowUserToResizeRows = false;
             this.dgvResultado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvResultado.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResultado.ColumnHeadersVisible = false;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvResultado.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvResultado.Location = new System.Drawing.Point(741, 28);
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvResultado.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dgvResultado.Location = new System.Drawing.Point(12, 327);
+            this.dgvResultado.MultiSelect = false;
             this.dgvResultado.Name = "dgvResultado";
             this.dgvResultado.RowHeadersVisible = false;
-            this.dgvResultado.Size = new System.Drawing.Size(359, 265);
+            this.dgvResultado.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dgvResultado.Size = new System.Drawing.Size(687, 265);
             this.dgvResultado.TabIndex = 2;
             this.dgvResultado.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellEndEdit_1);
             // 
-            // btnMultiplicarMatrizes
-            // 
-            this.btnMultiplicarMatrizes.Enabled = false;
-            this.btnMultiplicarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMultiplicarMatrizes.Location = new System.Drawing.Point(6, 172);
-            this.btnMultiplicarMatrizes.Name = "btnMultiplicarMatrizes";
-            this.btnMultiplicarMatrizes.Size = new System.Drawing.Size(233, 108);
-            this.btnMultiplicarMatrizes.TabIndex = 6;
-            this.btnMultiplicarMatrizes.Text = "Multiplicar Matrizes";
-            this.btnMultiplicarMatrizes.UseVisualStyleBackColor = true;
-            this.btnMultiplicarMatrizes.Click += new System.EventHandler(this.btnMultiplicarMatrizes_Click);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnMultiplicarMatrizes);
-            this.groupBox1.Controls.Add(this.btnSomarMatrizes);
-            this.groupBox1.Location = new System.Drawing.Point(741, 372);
+            this.groupBox1.Controls.Add(this.valorUpDown);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.btnSomarColuna);
+            this.groupBox1.Controls.Add(this.cbxColuna);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Location = new System.Drawing.Point(719, 402);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(253, 286);
+            this.groupBox1.Size = new System.Drawing.Size(329, 190);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Multiplicar";
+            this.groupBox1.Text = "Somar K a coluna";
+            // 
+            // valorUpDown
+            // 
+            this.valorUpDown.DecimalPlaces = 2;
+            this.valorUpDown.Enabled = false;
+            this.valorUpDown.Location = new System.Drawing.Point(129, 86);
+            this.valorUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.valorUpDown.Minimum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            -2147483648});
+            this.valorUpDown.Name = "valorUpDown";
+            this.valorUpDown.Size = new System.Drawing.Size(183, 20);
+            this.valorUpDown.TabIndex = 19;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(38, 43);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 20);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Coluna: ";
+            // 
+            // btnSomarColuna
+            // 
+            this.btnSomarColuna.Enabled = false;
+            this.btnSomarColuna.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSomarColuna.Location = new System.Drawing.Point(32, 120);
+            this.btnSomarColuna.Name = "btnSomarColuna";
+            this.btnSomarColuna.Size = new System.Drawing.Size(280, 53);
+            this.btnSomarColuna.TabIndex = 5;
+            this.btnSomarColuna.Text = "Somar Coluna";
+            this.btnSomarColuna.UseVisualStyleBackColor = true;
+            this.btnSomarColuna.Click += new System.EventHandler(this.btnSomarColuna_Click);
+            // 
+            // cbxColuna
+            // 
+            this.cbxColuna.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxColuna.Enabled = false;
+            this.cbxColuna.FormattingEnabled = true;
+            this.cbxColuna.Location = new System.Drawing.Point(129, 45);
+            this.cbxColuna.Name = "cbxColuna";
+            this.cbxColuna.Size = new System.Drawing.Size(183, 21);
+            this.cbxColuna.TabIndex = 18;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(38, 83);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 20);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Valor: ";
             // 
             // btnSomarMatrizes
             // 
             this.btnSomarMatrizes.Enabled = false;
             this.btnSomarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarMatrizes.Location = new System.Drawing.Point(6, 19);
+            this.btnSomarMatrizes.Location = new System.Drawing.Point(12, 610);
             this.btnSomarMatrizes.Name = "btnSomarMatrizes";
-            this.btnSomarMatrizes.Size = new System.Drawing.Size(233, 108);
+            this.btnSomarMatrizes.Size = new System.Drawing.Size(332, 52);
             this.btnSomarMatrizes.TabIndex = 6;
             this.btnSomarMatrizes.Text = "Somar Matrizes";
             this.btnSomarMatrizes.UseVisualStyleBackColor = true;
@@ -208,81 +260,12 @@
             this.btnLerMatrizB.UseVisualStyleBackColor = true;
             this.btnLerMatrizB.Click += new System.EventHandler(this.btnLerMatrizB_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.valorUpDown);
-            this.groupBox2.Controls.Add(this.cbxColuna);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.btnSomarColuna);
-            this.groupBox2.Location = new System.Drawing.Point(414, 372);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(285, 286);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Somar";
-            // 
-            // valorUpDown
-            // 
-            this.valorUpDown.Enabled = false;
-            this.valorUpDown.Location = new System.Drawing.Point(99, 238);
-            this.valorUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.valorUpDown.Name = "valorUpDown";
-            this.valorUpDown.Size = new System.Drawing.Size(138, 20);
-            this.valorUpDown.TabIndex = 19;
-            // 
-            // cbxColuna
-            // 
-            this.cbxColuna.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxColuna.Enabled = false;
-            this.cbxColuna.FormattingEnabled = true;
-            this.cbxColuna.Location = new System.Drawing.Point(99, 196);
-            this.cbxColuna.Name = "cbxColuna";
-            this.cbxColuna.Size = new System.Drawing.Size(77, 21);
-            this.cbxColuna.TabIndex = 18;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(21, 235);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 20);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Valor: ";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(26, 196);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 20);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "Coluna: ";
-            // 
-            // btnSomarColuna
-            // 
-            this.btnSomarColuna.Enabled = false;
-            this.btnSomarColuna.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSomarColuna.Location = new System.Drawing.Point(94, 41);
-            this.btnSomarColuna.Name = "btnSomarColuna";
-            this.btnSomarColuna.Size = new System.Drawing.Size(82, 53);
-            this.btnSomarColuna.TabIndex = 5;
-            this.btnSomarColuna.Text = "Somar Coluna";
-            this.btnSomarColuna.UseVisualStyleBackColor = true;
-            this.btnSomarColuna.Click += new System.EventHandler(this.btnSomarColuna_Click);
-            // 
             // rgbMB
             // 
             this.rgbMB.AutoSize = true;
             this.rgbMB.Enabled = false;
             this.rgbMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbMB.Location = new System.Drawing.Point(144, 321);
+            this.rgbMB.Location = new System.Drawing.Point(848, 36);
             this.rgbMB.Name = "rgbMB";
             this.rgbMB.Size = new System.Drawing.Size(85, 24);
             this.rgbMB.TabIndex = 10;
@@ -296,7 +279,7 @@
             this.rgbMA.AutoSize = true;
             this.rgbMA.Enabled = false;
             this.rgbMA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbMA.Location = new System.Drawing.Point(37, 321);
+            this.rgbMA.Location = new System.Drawing.Point(744, 36);
             this.rgbMA.Name = "rgbMA";
             this.rgbMA.Size = new System.Drawing.Size(85, 24);
             this.rgbMA.TabIndex = 9;
@@ -316,18 +299,37 @@
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Location = new System.Drawing.Point(12, 372);
+            this.groupBox3.Location = new System.Drawing.Point(719, 100);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(378, 286);
+            this.groupBox3.Size = new System.Drawing.Size(329, 286);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Operações";
+            // 
+            // numeroUpDown
+            // 
+            this.numeroUpDown.DecimalPlaces = 2;
+            this.numeroUpDown.Enabled = false;
+            this.numeroUpDown.Location = new System.Drawing.Point(122, 47);
+            this.numeroUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.numeroUpDown.Minimum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            -2147483648});
+            this.numeroUpDown.Name = "numeroUpDown";
+            this.numeroUpDown.Size = new System.Drawing.Size(190, 20);
+            this.numeroUpDown.TabIndex = 9;
             // 
             // btnDeletar
             // 
             this.btnDeletar.Enabled = false;
             this.btnDeletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeletar.Location = new System.Drawing.Point(132, 224);
+            this.btnDeletar.Location = new System.Drawing.Point(129, 178);
             this.btnDeletar.Name = "btnDeletar";
             this.btnDeletar.Size = new System.Drawing.Size(75, 43);
             this.btnDeletar.TabIndex = 8;
@@ -339,7 +341,7 @@
             // 
             this.btnIncluir.Enabled = false;
             this.btnIncluir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIncluir.Location = new System.Drawing.Point(32, 224);
+            this.btnIncluir.Location = new System.Drawing.Point(25, 178);
             this.btnIncluir.Name = "btnIncluir";
             this.btnIncluir.Size = new System.Drawing.Size(78, 43);
             this.btnIncluir.TabIndex = 7;
@@ -351,7 +353,7 @@
             // 
             this.btnAlterar.Enabled = false;
             this.btnAlterar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAlterar.Location = new System.Drawing.Point(229, 222);
+            this.btnAlterar.Location = new System.Drawing.Point(230, 178);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(82, 43);
             this.btnAlterar.TabIndex = 6;
@@ -416,7 +418,7 @@
             this.lblErro});
             this.txtErro.Location = new System.Drawing.Point(0, 673);
             this.txtErro.Name = "txtErro";
-            this.txtErro.Size = new System.Drawing.Size(1109, 25);
+            this.txtErro.Size = new System.Drawing.Size(1067, 25);
             this.txtErro.TabIndex = 14;
             // 
             // lblErro
@@ -429,36 +431,46 @@
             // 
             this.btnExcluirMatriz.Enabled = false;
             this.btnExcluirMatriz.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcluirMatriz.Location = new System.Drawing.Point(1009, 372);
+            this.btnExcluirMatriz.Location = new System.Drawing.Point(719, 610);
             this.btnExcluirMatriz.Name = "btnExcluirMatriz";
-            this.btnExcluirMatriz.Size = new System.Drawing.Size(91, 286);
+            this.btnExcluirMatriz.Size = new System.Drawing.Size(329, 52);
             this.btnExcluirMatriz.TabIndex = 15;
             this.btnExcluirMatriz.Text = "Excluir Matriz";
             this.btnExcluirMatriz.UseVisualStyleBackColor = true;
             this.btnExcluirMatriz.Click += new System.EventHandler(this.btnLiberarMatriz_Click);
             // 
-            // numeroUpDown
+            // btnMultiplicarMatrizes
             // 
-            this.numeroUpDown.Enabled = false;
-            this.numeroUpDown.Location = new System.Drawing.Point(122, 47);
-            this.numeroUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.numeroUpDown.Name = "numeroUpDown";
-            this.numeroUpDown.Size = new System.Drawing.Size(190, 20);
-            this.numeroUpDown.TabIndex = 9;
+            this.btnMultiplicarMatrizes.Enabled = false;
+            this.btnMultiplicarMatrizes.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMultiplicarMatrizes.Location = new System.Drawing.Point(367, 610);
+            this.btnMultiplicarMatrizes.Name = "btnMultiplicarMatrizes";
+            this.btnMultiplicarMatrizes.Size = new System.Drawing.Size(332, 52);
+            this.btnMultiplicarMatrizes.TabIndex = 6;
+            this.btnMultiplicarMatrizes.Text = "Multiplicar Matrizes";
+            this.btnMultiplicarMatrizes.UseVisualStyleBackColor = true;
+            this.btnMultiplicarMatrizes.Click += new System.EventHandler(this.btnMultiplicarMatrizes_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(773, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(177, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Selecione a matriz que deseja editar";
             // 
             // frmMatriz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1109, 698);
+            this.ClientSize = new System.Drawing.Size(1067, 698);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnSomarMatrizes);
+            this.Controls.Add(this.btnMultiplicarMatrizes);
             this.Controls.Add(this.btnExcluirMatriz);
             this.Controls.Add(this.txtErro);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnLerMatrizB);
             this.Controls.Add(this.rgbMB);
             this.Controls.Add(this.btnLerMatrizA);
@@ -468,20 +480,19 @@
             this.Controls.Add(this.dgvA);
             this.Controls.Add(this.dgvB);
             this.Name = "frmMatriz";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Matriz Esparsa";
-            this.Load += new System.EventHandler(this.frmMatriz_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numeroUpDown)).EndInit();
             this.txtErro.ResumeLayout(false);
             this.txtErro.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numeroUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -492,11 +503,9 @@
         private System.Windows.Forms.DataGridView dgvB;
         private System.Windows.Forms.DataGridView dgvA;
         private System.Windows.Forms.DataGridView dgvResultado;
-        private System.Windows.Forms.Button btnMultiplicarMatrizes;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnLerMatrizA;
         private System.Windows.Forms.Button btnLerMatrizB;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnSomarMatrizes;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -519,6 +528,8 @@
         private System.Windows.Forms.Button btnSomarColuna;
         private System.Windows.Forms.NumericUpDown valorUpDown;
         private System.Windows.Forms.NumericUpDown numeroUpDown;
+        private System.Windows.Forms.Button btnMultiplicarMatrizes;
+        private System.Windows.Forms.Label label4;
     }
 }
 

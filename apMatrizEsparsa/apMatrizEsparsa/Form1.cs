@@ -33,88 +33,14 @@ namespace apMatrizEsparsa
 
         private void btnLerMatrizA_Click(object sender, EventArgs e)
         {
-            LerMatriz(ref matrizA, dgvA);
-
-            rgbMA.Checked = true;
-            rgbMA.Enabled = true;
-
-            if(dgvB.RowCount != 0 && dgvB.ColumnCount != 0)       //Se as duas matrizes já tiverem sido lidas, as opções: Somar e Multiplicar matrizes se torna válida, portanto torna-se possível clicar nos botões
-            {
-                btnSomarMatrizes.Enabled = true;
-                btnMultiplicarMatrizes.Enabled = true;
-            }
-
-        }
-
-        private void IniciarControles()  //Método usado para ativar os botões para uso, após a leitura de pelo menos uma das listas
-        {
-            btnIncluir.Enabled = true;
-            btnDeletar.Enabled = true;
-            btnAlterar.Enabled = true;
-            btnSomarColuna.Enabled = true;
-            btnExcluirMatriz.Enabled = true;
-            
-            numeroUpDown.Enabled = true;
-            valorUpDown.Enabled = true;
-            cbxColuna.Enabled = true;
-        }
-
-        private void AjustarDataGridView(DataGridView qualDgv, int numLinhas, int numColunas)  //Método usado para adaptar o tamanho do DataGridView à matriz lida, que recebe como parâmetro a matriz na qual os dados devem ser inseridos e o DataGridView em que a matriz deve ser exibida após ser preenchida
-        {
-            qualDgv.ColumnCount = numColunas;  //Ajusta o número de colunas do dgv
-            qualDgv.RowCount = numLinhas;      //Ajusta o número de linhas do dgv
-
-            qualDgv.AllowUserToResizeColumns = false;  //Impede o usuário de modificar o tamanho das colunas do dgv
-            qualDgv.AllowUserToResizeRows = false;     //Impede o usuário de modificar o tamanho das linhas do dgv
-        }
-
-        private void LerMatriz(ref ListaCruzada lista, DataGridView dgv)  //Método para ler um arquivo e construir uma matriz a partir de seus dados
-        { 
-            if (dlgAbrir.ShowDialog() == DialogResult.OK)                 //Verifica se o 'openFileDialog' foi aberto corretamente             
-            {
-                var arquivo = new StreamReader(dlgAbrir.FileName);        //Seleção do arquivo pelo usuário
-                string numeroLinhaColuna = arquivo.ReadLine();            //variável do tipo string que guarda a linha inteira lida
-                lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5))); //Instanciação da matriz passada como parâmetro com os valores lidos da primeira linha do arquivo, que guarda o número de linhas e de colunas que a matriz deve ter
-
-                AjustarDataGridView(dgv, lista.NumLinhas, lista.NumColunas);    //Chama o método que adapta o DataGridView escolhido ao tamanho da matriz lida
-                IniciarControles();                      //Habilitar os botões que agora(após a instanciação da matriz) podem ser selecionados
-
-                bool teveErro = false;                   //Variável do tipo boolean que é usada para informar o programa e o usuário na ocorrência de algum erro 
-
-                while (!arquivo.EndOfStream)             //Loop que garante que todas as linhas do arquivo serão lidas
-                {
-                    Celula lida = Celula.LerRegistro(arquivo);  //Uma nova célula é criada a partir dos dados lidos, por meio do método da classe Celula LerRegistro, que se encarrega de criar uma nova celula ao ler uma linha por vez
-
-                    if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha > lista.NumLinhas || lida.Coluna > lista.NumColunas)   //Caso os índices de posicionamento da célula seja inválido, a celula não será criada e o erro aparecerá para o usuário 
-                    {
-                        teveErro = true;
-                        txtErro.Items.Add($"({lida.Linha}, {lida.Coluna})");
-                        continue;
-                    }
-
-                    lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);   //Caso não haja erro, a célula será criada  e o loop continuará
-                }
-
-                if (teveErro)         //Em caso de erro, uma mensagem será apresentada ao usuário 
-                    lblErro.Text = "Células com index não suportados pela matriz: "; //Mensagem de erro específica à invalidação do posicionamento da célula lida 
-
-                arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
-                lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
-            }
+            LerMatriz(ref matrizA, dgvA, rgbMA);
         }
 
         private void btnLerMatrizB_Click(object sender, EventArgs e) //Método chamado para a leitura da segunda matriz
         {
-            LerMatriz(ref matrizB, dgvB); //Passando como referência a declaração da segunda lista cruzada
-            rgbMB.Checked = true;  //Após a leitura da segunda matriz, as opções para manipulá-la passam a ser possíveis
-            rgbMB.Enabled = true;
-
-            if (dgvA.RowCount != 0 && dgvA.ColumnCount != 0)     //Se as duas matrizes já tiverem sido lidas, as opções: Somar e Multiplicar matrizes se torna válida, portanto torna-se possível clicar nos botões
-            {
-                btnSomarMatrizes.Enabled = true;
-                btnMultiplicarMatrizes.Enabled = true;
-            }
+            LerMatriz(ref matrizB, dgvB, rgbMB); //Passando como referência a declaração da segunda lista cruzada
         }
+
 
         private void btnSomarMatrizes_Click(object sender, EventArgs e)  //Método chamado se o usuário deseja somar as duas matizes a ele apresentadas 
         {
@@ -180,31 +106,9 @@ namespace apMatrizEsparsa
             }          
         }
 
-        private void dgvA_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (matrizA.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
-                return;
-
-            txtColuna.Text = e.ColumnIndex + "";
-            txtLinha.Text = e.RowIndex + "";
-            numeroUpDown.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
-        }
-
-        private void dgvB_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (matrizB.ValorDe(e.RowIndex, e.ColumnIndex) == 0)
-                return;
-
-            txtColuna.Text = e.ColumnIndex + "";
-            txtLinha.Text = e.RowIndex + "";
-            numeroUpDown.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
-        }
-
         private void dgvA_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtColuna.Text = e.ColumnIndex + "";
-            txtLinha.Text = e.RowIndex + "";
-            numeroUpDown.Text = matrizA.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+            ExibirInformacoes(matrizA, e.RowIndex, e.ColumnIndex);
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
@@ -230,7 +134,7 @@ namespace apMatrizEsparsa
             if (int.Parse(txtLinha.Text) < 0 || int.Parse(txtColuna.Text) < 0)
                 MessageBox.Show("Index do valor inválido", "Erro ao inserir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
-            if(rgbMA.Checked)
+            if (rgbMA.Checked)
             {
                 matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
@@ -239,7 +143,7 @@ namespace apMatrizEsparsa
             {
                 matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
                 matrizB.Listar(dgvB);
-            }           
+            }
         }
 
         private void btnLiberarMatriz_Click(object sender, EventArgs e)
@@ -247,25 +151,29 @@ namespace apMatrizEsparsa
             if (rgbMA.Checked)
             {
                 matrizA.ExcluirMatriz();
-                dgvA.Rows.Clear() ;
+                dgvA.Rows.Clear();
+                rgbMA.Checked = false;
             }
             else
-            if (rgbMB.Checked)
+           if (rgbMB.Checked)
             {
                 matrizB.ExcluirMatriz();
                 dgvB.Rows.Clear();
+                rgbMB.Checked = false;
             }
         }     
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
             if (matrizA == null || matrizB == null)
             {
-                MessageBox.Show("Para somar matrizes é necessário duas desta", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Para multiplicar matrizes é necessário duas desta", "Erro ao multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else {
-                dgvResultado.ColumnCount = dgvB.ColumnCount;
-                dgvResultado.RowCount = dgvA.RowCount;
-
+            else
+            if (matrizA.NumLinhas != matrizB.NumColunas || matrizA.NumColunas != matrizB.NumLinhas)
+                MessageBox.Show("O número de linhas de uma precisa ser igual ao número de colunas da outra matriz", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvB.ColumnCount);
                 ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
                 result.Listar(dgvResultado);
             }
@@ -284,17 +192,11 @@ namespace apMatrizEsparsa
             for (int i = 0; i < matrizB.NumColunas; i++)
                 cbxColuna.Items.Add(i + "");
         }
-
-        private void frmMatriz_Load(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void dgvB_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtColuna.Text = e.ColumnIndex + "";
-            txtLinha.Text = e.RowIndex + "";
-            numeroUpDown.Text = matrizB.ValorDe(e.RowIndex, e.ColumnIndex) + "";
+            ExibirInformacoes(matrizB, e.RowIndex, e.ColumnIndex);
         }
 
         private void dgvA_CellEndEdit_1(object sender, DataGridViewCellEventArgs e)
@@ -302,6 +204,78 @@ namespace apMatrizEsparsa
             DataGridView qual = (DataGridView)sender;
             numeroUpDown.Value = Convert.ToDecimal(qual[e.ColumnIndex, e.RowIndex].Value) ;
             btnAlterar.PerformClick();
+        }
+
+        private void ExibirInformacoes(ListaCruzada qualMatriz, int l, int c)
+        {
+            txtColuna.Text = c + "";
+            txtLinha.Text = l + "";
+            numeroUpDown.Text = qualMatriz.ValorDe(l, c) + "";
+        }
+
+        private void IniciarControles()  //Método usado para ativar os botões para uso, após a leitura de pelo menos uma das listas
+        {
+            btnIncluir.Enabled = true;
+            btnDeletar.Enabled = true;
+            btnAlterar.Enabled = true;
+            btnSomarColuna.Enabled = true;
+            btnExcluirMatriz.Enabled = true;
+
+            btnSomarMatrizes.Enabled = true;
+            btnMultiplicarMatrizes.Enabled = true;
+
+            numeroUpDown.Enabled = true;
+            valorUpDown.Enabled = true;
+            cbxColuna.Enabled = true;
+        }
+
+        private void AjustarDataGridView(DataGridView qualDgv, int numLinhas, int numColunas)  //Método usado para adaptar o tamanho do DataGridView à matriz lida, que recebe como parâmetro a matriz na qual os dados devem ser inseridos e o DataGridView em que a matriz deve ser exibida após ser preenchida
+        {
+            qualDgv.ColumnCount = numColunas;  //Ajusta o número de colunas do dgv
+            qualDgv.RowCount = numLinhas;      //Ajusta o número de linhas do dgv
+
+            int tamanhoCelula = qualDgv.Height / numLinhas;
+
+            foreach (DataGridViewRow linha in qualDgv.Rows)
+                linha.Height = linha.MinimumHeight = tamanhoCelula;
+           }
+
+        private void LerMatriz(ref ListaCruzada lista, DataGridView dgv, RadioButton qualRb)  //Método para ler um arquivo e construir uma matriz a partir de seus dados
+        {
+            if (dlgAbrir.ShowDialog() == DialogResult.OK)                 //Verifica se o 'openFileDialog' foi aberto corretamente             
+            {
+                var arquivo = new StreamReader(dlgAbrir.FileName);        //Seleção do arquivo pelo usuário
+                string numeroLinhaColuna = arquivo.ReadLine();            //variável do tipo string que guarda a linha inteira lida
+                lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5))); //Instanciação da matriz passada como parâmetro com os valores lidos da primeira linha do arquivo, que guarda o número de linhas e de colunas que a matriz deve ter
+
+                AjustarDataGridView(dgv, lista.NumLinhas, lista.NumColunas);    //Chama o método que adapta o DataGridView escolhido ao tamanho da matriz lida
+                IniciarControles();                      //Habilitar os botões que agora(após a instanciação da matriz) podem ser selecionados
+
+                bool teveErro = false;                   //Variável do tipo boolean que é usada para informar o programa e o usuário na ocorrência de algum erro 
+
+                while (!arquivo.EndOfStream)             //Loop que garante que todas as linhas do arquivo serão lidas
+                {
+                    Celula lida = Celula.LerRegistro(arquivo);  //Uma nova célula é criada a partir dos dados lidos, por meio do método da classe Celula LerRegistro, que se encarrega de criar uma nova celula ao ler uma linha por vez
+
+                    if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha > lista.NumLinhas || lida.Coluna > lista.NumColunas)   //Caso os índices de posicionamento da célula seja inválido, a celula não será criada e o erro aparecerá para o usuário 
+                    {
+                        teveErro = true;
+                        txtErro.Items.Add($"({lida.Linha}, {lida.Coluna})");
+                        continue;
+                    }
+
+                    lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);   //Caso não haja erro, a célula será criada  e o loop continuará
+                }
+
+                if (teveErro)         //Em caso de erro, uma mensagem será apresentada ao usuário 
+                    lblErro.Text = "Células com index não suportados pela matriz: "; //Mensagem de erro específica à invalidação do posicionamento da célula lida 
+
+                arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
+                lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
+
+                qualRb.Enabled = true;
+                qualRb.Checked = true;
+            }
         }
     }
 }
