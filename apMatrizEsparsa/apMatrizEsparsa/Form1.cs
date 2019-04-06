@@ -135,6 +135,7 @@ namespace apMatrizEsparsa
             else
             if (rgbMA.Checked)
             {
+               
                 matrizA.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
             }
@@ -151,30 +152,35 @@ namespace apMatrizEsparsa
             {
                 matrizA.ExcluirMatriz();
                 dgvA.Rows.Clear();
-                rgbMA.Checked = false;
+                rgbMB.Checked = true;
             }
             else
-           if (rgbMB.Checked)
+            if (rgbMB.Checked)
             {
                 matrizB.ExcluirMatriz();
                 dgvB.Rows.Clear();
-                rgbMB.Checked = false;
+                rgbMA.Checked = true;
             }
         }     
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
-            if (matrizA == null || matrizB == null)
+            try
             {
-                MessageBox.Show("Para multiplicar matrizes é necessário duas desta", "Erro ao multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (matrizA == null || matrizB == null)
+                    MessageBox.Show("Para multiplicar matrizes é necessário duas desta", "Erro ao multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                if (matrizA.NumLinhas != matrizB.NumColunas || matrizA.NumColunas != matrizB.NumLinhas)
+                    MessageBox.Show("O número de linhas de uma precisa ser igual ao número de colunas da outra matriz", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                {
+                    AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvB.ColumnCount);
+                    ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
+                    result.Listar(dgvResultado);
+                }
             }
-            else
-            if (matrizA.NumLinhas != matrizB.NumColunas || matrizA.NumColunas != matrizB.NumLinhas)
-                MessageBox.Show("O número de linhas de uma precisa ser igual ao número de colunas da outra matriz", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
+            catch(Exception erro)
             {
-                AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvB.ColumnCount);
-                ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
-                result.Listar(dgvResultado);
+                MessageBox.Show(erro.ToString(), "Erro a multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -287,9 +293,7 @@ namespace apMatrizEsparsa
 
                 arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
                 lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
-
-                //qualRb.Enabled = true;
-                //
+                
 
                 qualRb.Checked = true;
             }
@@ -304,6 +308,11 @@ namespace apMatrizEsparsa
         {
             ExibirInformacoes(matrizA, e.RowIndex, e.ColumnIndex);
         }
-        
+
+        private void dgvB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete)
+                btnDeletar.PerformClick();
+        }
     }
 }
