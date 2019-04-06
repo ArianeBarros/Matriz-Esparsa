@@ -31,6 +31,16 @@ namespace apMatrizEsparsa
                 string linha = arq.ReadLine();
                 string[] conteudo = linha.Split(',');
                 cel = new Celula(int.Parse(conteudo[0]), int.Parse(conteudo[1]), double.Parse(conteudo[2]), null, null);
+                if (conteudo.Length == 4)
+                {
+                    double inteiro = double.Parse(conteudo[2]);
+                    int dec = int.Parse(conteudo[3]);
+                    if (inteiro < 0)
+                        cel.Valor -= (dec * 0.1);
+                    else
+                        cel.valor += (dec * 0.1);
+                }
+                    
             }
 
             return cel;
