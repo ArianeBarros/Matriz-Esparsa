@@ -161,7 +161,16 @@ namespace apMatrizEsparsa
         }
         public ListaCruzada MultiplicarMatrizes(ListaCruzada listaB)
         {
+            //if(NumLinhas => listaB.NumColunas && NumColunas => listaB.NumColunas)
+            //   ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
+            //else
+            //{
+            //    if (NumLinhas > listaB.NumColunas && NumColunas < listaB.NumColunas)
+            //        ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
+            //}
+
             ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
+
             double resultado = 0;
             for (int l = 0; l < numLinhas; l++)
             {
@@ -174,8 +183,7 @@ namespace apMatrizEsparsa
                     }
 
                         if (resultado != 0)
-                            produto.InserirElemento(l, c, resultado);
-                    
+                            produto.InserirElemento(l, c, resultado);                    
                 }
             }
             
