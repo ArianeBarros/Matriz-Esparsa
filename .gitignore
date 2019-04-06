@@ -349,3 +349,5 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/visualstudio
+apMatrizEsparsa/apMatrizEsparsa/obj/Debug/apMatrizEsparsa.csproj.CoreCompileInputs.cache
+apMatrizEsparsa/.vs/apMatrizEsparsa/v15/.suo

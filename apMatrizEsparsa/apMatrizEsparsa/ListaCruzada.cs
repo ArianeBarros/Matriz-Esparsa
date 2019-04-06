@@ -145,6 +145,9 @@ namespace apMatrizEsparsa
 
         public ListaCruzada SomarMatrizes(ListaCruzada listaB)
         {
+            if (this.NumColunas != listaB.NumColunas || this.NumLinhas != listaB.NumLinhas)
+                throw new Exception("Para somar matrizes, ambas devem ter a mesma dimensão");
+
             ListaCruzada soma = new ListaCruzada(numLinhas, numColunas);
 
             for (int l = 0; l < numLinhas; l++)
@@ -161,16 +164,10 @@ namespace apMatrizEsparsa
         }
         public ListaCruzada MultiplicarMatrizes(ListaCruzada listaB)
         {
-            //if(NumLinhas => listaB.NumColunas && NumColunas => listaB.NumColunas)
-            //   ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
-            //else
-            //{
-            //    if (NumLinhas > listaB.NumColunas && NumColunas < listaB.NumColunas)
-            //        ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
-            //}
+            if (this.NumLinhas != listaB.NumColunas)
+                throw new Exception("Para multiplicar matrizes, o número de linhas de uma deve ser igual ao número de colunas da outra");
 
             ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
-
             double resultado = 0;
             for (int l = 0; l < numLinhas; l++)
             {
@@ -183,7 +180,8 @@ namespace apMatrizEsparsa
                     }
 
                         if (resultado != 0)
-                            produto.InserirElemento(l, c, resultado);                    
+                            produto.InserirElemento(l, c, resultado);
+                    
                 }
             }
             
