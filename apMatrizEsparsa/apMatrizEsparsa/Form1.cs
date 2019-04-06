@@ -43,15 +43,17 @@ namespace apMatrizEsparsa
 
         private void btnSomarMatrizes_Click(object sender, EventArgs e)  //Método chamado se o usuário deseja somar as duas matizes a ele apresentadas 
         {
-            if(matrizA == null || matrizB == null) //Caso o usuário não tenha escolhido duas matrizes, não será possível soma-las, então uma mensagem de erro é mostrada ao usuário 
-            {
+            if (matrizA == null || matrizB == null) //Caso o usuário não tenha escolhido duas matrizes, não será possível soma-las, então uma mensagem de erro é mostrada ao usuário 
                 MessageBox.Show("Para somar matrizes é necessário duas desta", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            else
+            if (matrizA.EstaDesalocada || matrizB.EstaDesalocada)
+                MessageBox.Show("Matriz desalocada", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            if (matrizA.NumLinhas != matrizB.NumLinhas || matrizA.NumColunas != matrizB.NumColunas)
+                MessageBox.Show("Para somar matrizes, ambas precisam ter a mesma dimensão", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                dgvResultado.RowCount = dgvA.RowCount;  //Adequação do número de linhas do dgvResultado à soma das duas matrizes
-                dgvResultado.ColumnCount = dgvA.ColumnCount;  //Adequação do número de colunas do dgvResultado à soma das duas matrizes
-
+                AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvA.ColumnCount);
                 ListaCruzada soma = matrizA.SomarMatrizes(matrizB);
                 soma.Listar(dgvResultado);
             }
@@ -66,33 +68,29 @@ namespace apMatrizEsparsa
             {
                 matrizA.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));
                 matrizA.Listar(dgvA);
-            }                
+            }
             else
             {
                 matrizB.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));
                 matrizB.Listar(dgvB);
             }
-               
         }
 
         private void btnDeletar_Click(object sender, EventArgs e)
         {
-            if (numeroUpDown.Text == "" || numeroUpDown.Text == "0")
+            if (int.Parse(linhaUpDown.Text) < 0 || int.Parse(colunaUpDown.Text) < 0)
+                MessageBox.Show("Index inválido", "Erro ao excluir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            if (rgbMA.Checked)
             {
-                txtErro.Text = "Erro: Selecione uma célula para a exclusão!!";
-                return;
-            }            
-
-            if(rgbMA.Checked)
-            {
-                if(matrizA.Excluir(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text)))
+                if (matrizA.Excluir(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text)))
                 {
                     matrizA.Listar(dgvA);
                     numeroUpDown.Text = "0";
-                }                    
+                }
                 else
                     txtErro.Text = "Erro ao excluir!";
-            }                
+            }
             else
             {
                 if (matrizB.Excluir(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text)))
@@ -102,18 +100,22 @@ namespace apMatrizEsparsa
                 }
                 else
                     txtErro.Text = "Erro ao excluir!";
-            }          
+            }
         }
 
         private void dgvA_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ExibirInformacoes(matrizA, e.RowIndex, e.ColumnIndex);
+            if (dgvB.SelectedCells.Count != 0)
+                dgvB.ClearSelection();
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
-        {         
-
-            if(rgbMA.Checked)
+        {
+            if (int.Parse(linhaUpDown.Text) < 0 || int.Parse(colunaUpDown.Text) < 0)
+                MessageBox.Show("Index inválido", "Erro ao alterar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            if (rgbMA.Checked)
             {
                 matrizA.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
@@ -127,15 +129,12 @@ namespace apMatrizEsparsa
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
-            if (linhaUpDown.Text == "" || colunaUpDown.Text == "")
-                MessageBox.Show("Preencha os dados corretamente", "Dados incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
             if (int.Parse(linhaUpDown.Text) < 0 || int.Parse(colunaUpDown.Text) < 0)
                 MessageBox.Show("Index do valor inválido", "Erro ao inserir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             if (rgbMA.Checked)
             {
-               
+
                 matrizA.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
             }
@@ -152,35 +151,42 @@ namespace apMatrizEsparsa
             {
                 matrizA.ExcluirMatriz();
                 dgvA.Rows.Clear();
-                rgbMB.Checked = true;
+                if (matrizB != null)
+                    rgbMB.Checked = true;
             }
             else
             if (rgbMB.Checked)
             {
                 matrizB.ExcluirMatriz();
                 dgvB.Rows.Clear();
-                rgbMA.Checked = true;
+                if (matrizA != null)
+                    rgbMA.Checked = true;
             }
-        }     
+
+            colunaUpDown.Minimum = linhaUpDown.Minimum = 0;
+
+            if (matrizA.EstaDesalocada && matrizB.EstaDesalocada)
+            {
+                IniciarControles(false);
+                LimparCampos();
+            }
+
+        }
         private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
         {
-            try
+            if (matrizA == null || matrizB == null)
+                MessageBox.Show("Para multiplicar matrizes é necessário duas desta", "Erro ao multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            if (matrizA.EstaDesalocada || matrizB.EstaDesalocada)
+                MessageBox.Show("Matriz desalocada", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+            if (matrizA.NumLinhas != matrizB.NumColunas || matrizA.NumColunas != matrizB.NumLinhas)
+                MessageBox.Show("O número de linhas de uma precisa ser igual ao número de colunas da outra matriz", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
             {
-                if (matrizA == null || matrizB == null)
-                    MessageBox.Show("Para multiplicar matrizes é necessário duas desta", "Erro ao multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                if (matrizA.NumLinhas != matrizB.NumColunas || matrizA.NumColunas != matrizB.NumLinhas)
-                    MessageBox.Show("O número de linhas de uma precisa ser igual ao número de colunas da outra matriz", "Erro ao multiplicar matrizes", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                {
-                    AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvB.ColumnCount);
-                    ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
-                    result.Listar(dgvResultado);
-                }
-            }
-            catch(Exception erro)
-            {
-                MessageBox.Show(erro.ToString(), "Erro a multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvB.ColumnCount);
+                ListaCruzada result = matrizA.MultiplicarMatrizes(matrizB);
+                result.Listar(dgvResultado);
             }
         }
 
@@ -202,17 +208,21 @@ namespace apMatrizEsparsa
             linhaUpDown.Maximum = matrizB.NumLinhas - 1;
             colunaUpDown.Maximum = matrizB.NumColunas - 1;
         }
-        
+
 
         private void dgvB_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             ExibirInformacoes(matrizB, e.RowIndex, e.ColumnIndex);
+
+            if (dgvA.SelectedCells.Count != 0)
+                dgvA.ClearSelection();
+
         }
 
         private void dgvA_CellEndEdit_1(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView qual = (DataGridView)sender;
-            numeroUpDown.Value = Convert.ToDecimal(qual[e.ColumnIndex, e.RowIndex].Value) ;
+            numeroUpDown.Value = Convert.ToDecimal(qual[e.ColumnIndex, e.RowIndex].Value);
             btnAlterar.PerformClick();
         }
 
@@ -225,29 +235,26 @@ namespace apMatrizEsparsa
             if (qualMatriz == matrizA)
                 rgbMA.Checked = true;
             else
-            if (qualMatriz == matrizB)
                 rgbMB.Checked = true;
-            else
-                rgbResultado.Checked = true;
         }
 
-        private void IniciarControles()  //Método usado para ativar os botões para uso, após a leitura de pelo menos uma das listas
+        private void IniciarControles(bool estado)  //Método usado para ativar os botões para uso, após a leitura de pelo menos uma das listas
         {
-            btnIncluir.Enabled = true;
-            btnDeletar.Enabled = true;
-            btnAlterar.Enabled = true;
-            btnSomarColuna.Enabled = true;
-            btnExcluirMatriz.Enabled = true;
+            btnIncluir.Enabled = estado;
+            btnDeletar.Enabled = estado;
+            btnAlterar.Enabled = estado;
+            btnSomarColuna.Enabled = estado;
+            btnExcluirMatriz.Enabled = estado;
 
-            btnSomarMatrizes.Enabled = true;
-            btnMultiplicarMatrizes.Enabled = true;
+            btnSomarMatrizes.Enabled = estado;
+            btnMultiplicarMatrizes.Enabled = estado;
 
-            linhaUpDown.Enabled = true;
-            colunaUpDown.Enabled = true;
+            linhaUpDown.Enabled = estado;
+            colunaUpDown.Enabled = estado;
 
-            numeroUpDown.Enabled = true;
-            valorUpDown.Enabled = true;
-            cbxColuna.Enabled = true;
+            numeroUpDown.Enabled = estado;
+            valorUpDown.Enabled = estado;
+            cbxColuna.Enabled = estado;
         }
 
         private void AjustarDataGridView(DataGridView qualDgv, int numLinhas, int numColunas)  //Método usado para adaptar o tamanho do DataGridView à matriz lida, que recebe como parâmetro a matriz na qual os dados devem ser inseridos e o DataGridView em que a matriz deve ser exibida após ser preenchida
@@ -259,7 +266,7 @@ namespace apMatrizEsparsa
 
             foreach (DataGridViewRow linha in qualDgv.Rows)
                 linha.Height = linha.MinimumHeight = tamanhoCelula;
-           }
+        }
 
         private void LerMatriz(ref ListaCruzada lista, DataGridView dgv, RadioButton qualRb)  //Método para ler um arquivo e construir uma matriz a partir de seus dados
         {
@@ -270,7 +277,7 @@ namespace apMatrizEsparsa
                 lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5))); //Instanciação da matriz passada como parâmetro com os valores lidos da primeira linha do arquivo, que guarda o número de linhas e de colunas que a matriz deve ter
 
                 AjustarDataGridView(dgv, lista.NumLinhas, lista.NumColunas);    //Chama o método que adapta o DataGridView escolhido ao tamanho da matriz lida
-                IniciarControles();                      //Habilitar os botões que agora(após a instanciação da matriz) podem ser selecionados
+                IniciarControles(true);                      //Habilitar os botões que agora(após a instanciação da matriz) podem ser selecionados
 
                 bool teveErro = false;                   //Variável do tipo boolean que é usada para informar o programa e o usuário na ocorrência de algum erro 
 
@@ -293,8 +300,11 @@ namespace apMatrizEsparsa
 
                 arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
                 lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
-                
-
+                ExibirInformacoes(lista, 0, 0);
+                if (lista == matrizA)
+                    dgvB.ClearSelection();
+                else
+                    dgvA.ClearSelection();
                 qualRb.Checked = true;
             }
         }
@@ -313,6 +323,15 @@ namespace apMatrizEsparsa
         {
             if (e.KeyData == Keys.Delete)
                 btnDeletar.PerformClick();
+        }
+
+        private void LimparCampos()
+        {
+            numeroUpDown.Value = 0;
+            linhaUpDown.Value = 0;
+            colunaUpDown.Value = 0;
+            cbxColuna.SelectedIndex = -1;
+            valorUpDown.Value = 0;
         }
     }
 }

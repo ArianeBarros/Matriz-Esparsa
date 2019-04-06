@@ -46,6 +46,8 @@
             this.rgbMB = new System.Windows.Forms.RadioButton();
             this.rgbMA = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.colunaUpDown = new System.Windows.Forms.NumericUpDown();
+            this.linhaUpDown = new System.Windows.Forms.NumericUpDown();
             this.numeroUpDown = new System.Windows.Forms.NumericUpDown();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
@@ -58,19 +60,16 @@
             this.lblErro = new System.Windows.Forms.ToolStripLabel();
             this.btnExcluirMatriz = new System.Windows.Forms.Button();
             this.btnMultiplicarMatrizes = new System.Windows.Forms.Button();
-            this.rgbResultado = new System.Windows.Forms.RadioButton();
-            this.linhaUpDown = new System.Windows.Forms.NumericUpDown();
-            this.colunaUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colunaUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linhaUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeroUpDown)).BeginInit();
             this.txtErro.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.linhaUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.colunaUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvB
@@ -141,21 +140,21 @@
             this.dgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResultado.ColumnHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ScrollBar;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvResultado.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvResultado.Location = new System.Drawing.Point(12, 327);
             this.dgvResultado.MultiSelect = false;
             this.dgvResultado.Name = "dgvResultado";
+            this.dgvResultado.ReadOnly = true;
             this.dgvResultado.RowHeadersVisible = false;
             this.dgvResultado.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvResultado.Size = new System.Drawing.Size(687, 265);
             this.dgvResultado.TabIndex = 2;
-            this.dgvResultado.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellEndEdit_1);
             // 
             // groupBox1
             // 
@@ -312,6 +311,32 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Operações";
             // 
+            // colunaUpDown
+            // 
+            this.colunaUpDown.Enabled = false;
+            this.colunaUpDown.Location = new System.Drawing.Point(122, 145);
+            this.colunaUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.colunaUpDown.Name = "colunaUpDown";
+            this.colunaUpDown.Size = new System.Drawing.Size(190, 20);
+            this.colunaUpDown.TabIndex = 11;
+            // 
+            // linhaUpDown
+            // 
+            this.linhaUpDown.Enabled = false;
+            this.linhaUpDown.Location = new System.Drawing.Point(122, 94);
+            this.linhaUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.linhaUpDown.Name = "linhaUpDown";
+            this.linhaUpDown.Size = new System.Drawing.Size(190, 20);
+            this.linhaUpDown.TabIndex = 10;
+            // 
             // numeroUpDown
             // 
             this.numeroUpDown.DecimalPlaces = 2;
@@ -441,51 +466,11 @@
             this.btnMultiplicarMatrizes.UseVisualStyleBackColor = true;
             this.btnMultiplicarMatrizes.Click += new System.EventHandler(this.btnMultiplicarMatrizes_Click);
             // 
-            // rgbResultado
-            // 
-            this.rgbResultado.AutoSize = true;
-            this.rgbResultado.Enabled = false;
-            this.rgbResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbResultado.Location = new System.Drawing.Point(822, 66);
-            this.rgbResultado.Name = "rgbResultado";
-            this.rgbResultado.Size = new System.Drawing.Size(147, 24);
-            this.rgbResultado.TabIndex = 17;
-            this.rgbResultado.TabStop = true;
-            this.rgbResultado.Text = "Matriz Resultado";
-            this.rgbResultado.UseVisualStyleBackColor = true;
-            // 
-            // linhaUpDown
-            // 
-            this.linhaUpDown.Enabled = false;
-            this.linhaUpDown.Location = new System.Drawing.Point(122, 94);
-            this.linhaUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.linhaUpDown.Name = "linhaUpDown";
-            this.linhaUpDown.Size = new System.Drawing.Size(190, 20);
-            this.linhaUpDown.TabIndex = 10;
-            // 
-            // colunaUpDown
-            // 
-            this.colunaUpDown.Enabled = false;
-            this.colunaUpDown.Location = new System.Drawing.Point(122, 145);
-            this.colunaUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.colunaUpDown.Name = "colunaUpDown";
-            this.colunaUpDown.Size = new System.Drawing.Size(190, 20);
-            this.colunaUpDown.TabIndex = 11;
-            // 
             // frmMatriz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 698);
-            this.Controls.Add(this.rgbResultado);
             this.Controls.Add(this.btnSomarMatrizes);
             this.Controls.Add(this.btnMultiplicarMatrizes);
             this.Controls.Add(this.btnExcluirMatriz);
@@ -510,11 +495,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.valorUpDown)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colunaUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.linhaUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeroUpDown)).EndInit();
             this.txtErro.ResumeLayout(false);
             this.txtErro.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.linhaUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.colunaUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -549,7 +534,6 @@
         private System.Windows.Forms.NumericUpDown valorUpDown;
         private System.Windows.Forms.NumericUpDown numeroUpDown;
         private System.Windows.Forms.Button btnMultiplicarMatrizes;
-        private System.Windows.Forms.RadioButton rgbResultado;
         private System.Windows.Forms.NumericUpDown colunaUpDown;
         private System.Windows.Forms.NumericUpDown linhaUpDown;
     }

@@ -233,6 +233,12 @@ namespace apMatrizEsparsa
             qtdValores = 0;
         }
 
+        public bool EstaDesalocada
+        {
+            get => cabeca == null;
+        }
+
+
         public void SomarColuna(double v, int qualColuna)
         {
             if (qualColuna < 0 || qualColuna > numColunas)
