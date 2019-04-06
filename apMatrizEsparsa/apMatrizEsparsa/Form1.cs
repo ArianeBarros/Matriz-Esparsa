@@ -24,7 +24,6 @@ namespace apMatrizEsparsa
     {
         ListaCruzada matrizA;
         ListaCruzada matrizB;
-        
 
         public frmMatriz()
         {
@@ -86,7 +85,7 @@ namespace apMatrizEsparsa
 
             if(rgbMA.Checked)
             {
-                if(matrizA.Excluir(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text)))
+                if(matrizA.Excluir(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text)))
                 {
                     matrizA.Listar(dgvA);
                     numeroUpDown.Text = "0";
@@ -96,7 +95,7 @@ namespace apMatrizEsparsa
             }                
             else
             {
-                if (matrizB.Excluir(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text)))
+                if (matrizB.Excluir(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text)))
                 {
                     matrizB.Listar(dgvB);
                     numeroUpDown.Text = "0";
@@ -116,32 +115,32 @@ namespace apMatrizEsparsa
 
             if(rgbMA.Checked)
             {
-                matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
+                matrizA.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
             }
             else
             {
-                matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
+                matrizB.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizB.Listar(dgvB);
             }
         }
 
         private void btnIncluir_Click(object sender, EventArgs e)
         {
-            if (txtLinha.Text == "" || txtColuna.Text == "")
+            if (linhaUpDown.Text == "" || colunaUpDown.Text == "")
                 MessageBox.Show("Preencha os dados corretamente", "Dados incompletos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-            if (int.Parse(txtLinha.Text) < 0 || int.Parse(txtColuna.Text) < 0)
+            if (int.Parse(linhaUpDown.Text) < 0 || int.Parse(colunaUpDown.Text) < 0)
                 MessageBox.Show("Index do valor inválido", "Erro ao inserir", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             if (rgbMA.Checked)
             {
-                matrizA.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
+                matrizA.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizA.Listar(dgvA);
             }
             else
             {
-                matrizB.InserirElemento(int.Parse(txtLinha.Text), int.Parse(txtColuna.Text), double.Parse(numeroUpDown.Text));
+                matrizB.InserirElemento(int.Parse(linhaUpDown.Text), int.Parse(colunaUpDown.Text), double.Parse(numeroUpDown.Text));
                 matrizB.Listar(dgvB);
             }
         }
@@ -184,6 +183,9 @@ namespace apMatrizEsparsa
             cbxColuna.Items.Clear();
             for (int i = 0; i < matrizA.NumColunas; i++)
                 cbxColuna.Items.Add(i + "");
+
+            linhaUpDown.Maximum = matrizA.NumLinhas - 1;
+            colunaUpDown.Maximum = matrizA.NumColunas - 1;
         }
 
         private void rgbMB_CheckedChanged(object sender, EventArgs e)
@@ -191,6 +193,8 @@ namespace apMatrizEsparsa
             cbxColuna.Items.Clear();
             for (int i = 0; i < matrizB.NumColunas; i++)
                 cbxColuna.Items.Add(i + "");
+            linhaUpDown.Maximum = matrizB.NumLinhas - 1;
+            colunaUpDown.Maximum = matrizB.NumColunas - 1;
         }
         
 
@@ -208,9 +212,17 @@ namespace apMatrizEsparsa
 
         private void ExibirInformacoes(ListaCruzada qualMatriz, int l, int c)
         {
-            txtColuna.Text = c + "";
-            txtLinha.Text = l + "";
+            colunaUpDown.Text = c + "";
+            linhaUpDown.Text = l + "";
             numeroUpDown.Text = qualMatriz.ValorDe(l, c) + "";
+
+            if (qualMatriz == matrizA)
+                rgbMA.Checked = true;
+            else
+            if (qualMatriz == matrizB)
+                rgbMB.Checked = true;
+            else
+                rgbResultado.Checked = true;
         }
 
         private void IniciarControles()  //Método usado para ativar os botões para uso, após a leitura de pelo menos uma das listas
@@ -223,6 +235,9 @@ namespace apMatrizEsparsa
 
             btnSomarMatrizes.Enabled = true;
             btnMultiplicarMatrizes.Enabled = true;
+
+            linhaUpDown.Enabled = true;
+            colunaUpDown.Enabled = true;
 
             numeroUpDown.Enabled = true;
             valorUpDown.Enabled = true;
@@ -273,9 +288,22 @@ namespace apMatrizEsparsa
                 arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
                 lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
 
-                qualRb.Enabled = true;
+                //qualRb.Enabled = true;
+                //
+
                 qualRb.Checked = true;
             }
         }
+
+        private void dgvB_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            ExibirInformacoes(matrizB, e.RowIndex, e.ColumnIndex);
+        }
+
+        private void dgvA_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            ExibirInformacoes(matrizA, e.RowIndex, e.ColumnIndex);
+        }
+        
     }
 }
