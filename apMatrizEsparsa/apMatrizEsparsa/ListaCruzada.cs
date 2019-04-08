@@ -109,24 +109,20 @@ namespace apMatrizEsparsa
             atualColuna = cabeca;   //Posiciona o atualColuna no ponto de referencia para o começo da lista
 
             while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)   //Loops usados para percorrer a lista e posicionar os ponteiros no local correto
-            {
                 atualLinha = atualLinha.Abaixo;
-            }
+            
 
             while (atualLinha.Direita.Coluna < c && atualLinha.Direita != atualLinha && atualLinha.Direita.Coluna != -1)
-            {
                 atualLinha = atualLinha.Direita;
-            }
+            
 
             while (atualColuna.Coluna < c && atualColuna.Direita != atualColuna)
-            {
                 atualColuna = atualColuna.Direita;
-            }
+            
 
             while (atualColuna.Abaixo.Linha < l && atualColuna.Abaixo != atualColuna && atualColuna.Abaixo.Linha != -1)
-            {
                 atualColuna = atualColuna.Abaixo;
-            }
+            
 
             Celula procurada = atualLinha.Direita;
             if (procurada.Coluna != c || procurada.Linha != l) //Verifica se existe um item nessa posiçao, caso não exista, as coordenadas referentes a este não baterão com as passadas por parâmetro
