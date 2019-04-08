@@ -33,7 +33,7 @@ namespace apMatrizEsparsa
             numColunas = colunas;
 
             Celula atual = cabeca;
-            for (int i = 0; i < linhas; i++) 
+            for (int i = 0; i < linhas; i++)
             {
                 Celula novaCelula = new Celula(i, -1, 0, null, null);
                 atual.Abaixo = novaCelula;
@@ -61,26 +61,26 @@ namespace apMatrizEsparsa
 
         public void InserirElemento(int l, int c, double v)  //Método que insere um novo valor na matriz, de acordo com os índices de linha, coluna e valor passados por parâmetro
         {
-            if (l < 0 || l > numLinhas)    //Verifica se a linha passada por parâmetro é válida
+            if (l < 0 || l > numLinhas)
                 throw new Exception("Index de linha inválido");
-            if (c < 0 || c > numColunas)   //Verifica se a coluna passada por parâmetro é válida
+            if (c < 0 || c > numColunas)
                 throw new Exception("Index de coluna inválido");
 
-            if (v != 0)  //Se o valor passado por parâmetro for zero, não devemos criar um novo elemento
+            if (v != 0)
             {
-                if (Existe(l, c))    //Caso o elemento já exista, apenas mudamos seu valor para o passado como parâmetro
+                if (Existe(l, c))
                     atualColuna.Abaixo.Valor = v;
-                else                //Caso não exista, criamos uma nova célula
-                { 
-                    Celula novaCelula = new Celula(l, c, v, null, null); //Instanciamos uma nova célula
+                else
+                {
+                    Celula novaCelula = new Celula(l, c, v, null, null);
 
-                    novaCelula.Abaixo = atualColuna.Abaixo;              //Mudamos o posicionamento dos ponteiros para que apontem para a nova célula e essa aponte para a próxima
+                    novaCelula.Abaixo = atualColuna.Abaixo;
                     atualColuna.Abaixo = novaCelula;
 
                     novaCelula.Direita = atualLinha.Direita;
                     atualLinha.Direita = novaCelula;
 
-                    qtdValores++;                 //Somamos 1 ao número de valores da lista após a inclusão
+                    qtdValores++;
                 }
             }
         }
@@ -206,17 +206,17 @@ namespace apMatrizEsparsa
             ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas); //Declaramos e instanciamos uma nova lista local, que será o resultado da multiplicação das listas
             double resultado = 0;
 
-            for (int l = 0; l < numLinhas; l++)   //Percorremos as lista, multiplicando item por item das listas e inserindo o resultado na lista produto
+            for (int l = 0; l < numLinhas; l++)   //Percorremos as lista, multiplicando item por item das listas e inserindo o resultado na lista
             {
-                for (int c = 0; c < listaB.NumColunas; c++) //Multiplicamos os valores de todas as células de uma linha, percorrendo cada coluna
+                for (int c = 0; c < listaB.NumColunas; c++)
                 {
-                    resultado = 0; //Zeramos a variável resultado, para que possa armazenar a multiplicação da próxima linha
+                    resultado = 0;
                     for (int col = 0; col < numColunas; col++)
                     {
-                        resultado += ValorDe(l, col) * listaB.ValorDe(col, c);  //Atribuição da multiplicação à variável resultado
+                        resultado += ValorDe(l, col) * listaB.ValorDe(col, c);
                     }
                     if (resultado != 0)
-                        produto.InserirElemento(l, c, resultado);      //Insere um novo elemento na lista produto, com o valor da multiplicação                
+                        produto.InserirElemento(l, c, resultado);                    
                 }
             }            
 
@@ -225,15 +225,15 @@ namespace apMatrizEsparsa
 
         public void ExcluirMatriz()                      //Método que exclui todos os elementos da lista, deixando de exibi-la para o usuário
         { 
-            cabeca = null;  //Zeramos todos os seus atributos, pois não guardam mais nenhum valor
+            cabeca = null;
             numColunas = 0;
             numLinhas = 0;
             qtdValores = 0;
         }
 
-        public bool EstaDesalocada                           //Propriedade que retorna se o ponteiro cabeca(ponto de referência para a lista) está apontando para o lugar certo
+        public bool EstaDesalocada                           //Método que retorna se o ponteiro cabeca(ponto de referência para a lista) está apontando para o lugar certo
         {
-            get => cabeca == null;                           //Retorna se a igualdade (se a cabeca da lista é nula) é falsa ou verdadeira
+            get => cabeca == null;
         }
 
 
