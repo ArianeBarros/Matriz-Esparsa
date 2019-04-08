@@ -278,6 +278,7 @@ namespace apMatrizEsparsa
         {
             if (dlgAbrir.ShowDialog() == DialogResult.OK)                 //Verifica se o 'openFileDialog' foi aberto corretamente             
             {
+                txtErro.Items.Clear();
                 var arquivo = new StreamReader(dlgAbrir.FileName);        //Seleção do arquivo pelo usuário
                 string numeroLinhaColuna = arquivo.ReadLine();            //variável do tipo string que guarda a linha inteira lida
                 lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5))); //Instanciação da matriz passada como parâmetro com os valores lidos da primeira linha do arquivo, que guarda o número de linhas e de colunas que a matriz deve ter
@@ -291,7 +292,7 @@ namespace apMatrizEsparsa
                 {
                     Celula lida = Celula.LerRegistro(arquivo);  //Uma nova célula é criada a partir dos dados lidos, por meio do método da classe Celula LerRegistro, que se encarrega de criar uma nova celula ao ler uma linha por vez
 
-                    if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha > lista.NumLinhas || lida.Coluna > lista.NumColunas)   //Caso os índices de posicionamento da célula seja inválido, a celula não será criada e o erro aparecerá para o usuário 
+                    if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha >= lista.NumLinhas || lida.Coluna >= lista.NumColunas)   //Caso os índices de posicionamento da célula seja inválido, a celula não será criada e o erro aparecerá para o usuário 
                     {
                         teveErro = true;
                         txtErro.Items.Add($"({lida.Linha}, {lida.Coluna})");
