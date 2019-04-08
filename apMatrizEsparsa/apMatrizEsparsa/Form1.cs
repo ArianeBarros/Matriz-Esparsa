@@ -10,12 +10,10 @@ using System.Windows.Forms;
 using System.IO;
 
 /*
- * Deletar negativos
  * Indicar número de linhas e colunas
- * Multiplicar matrizes
  * Salvar??
- * Usuario pode alterar células direto na dgv?
- * configurar tamanho do dgvResultado ao somar e multiplicarr as matrizes
+ * configurar tamanho do dgvResultado ao somar e multiplicarr as matrizes * 
+ * Multiplicar matrizes - o número de linhas de uma precisa ser igual?
  * */
 
 namespace apMatrizEsparsa
@@ -172,7 +170,7 @@ namespace apMatrizEsparsa
             }
 
         }
-        private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)
+        private void btnMultiplicarMatrizes_Click(object sender, EventArgs e)   //Método responsável por multiplicar as linhas e colunas das duas matrizes sendo exibidas
         {
             if (matrizA == null || matrizB == null)
                 MessageBox.Show("Para multiplicar matrizes é necessário duas desta", "Erro ao multiplicar", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -190,23 +188,23 @@ namespace apMatrizEsparsa
             }
         }
 
-        private void rgbMA_CheckedChanged(object sender, EventArgs e)
+        private void rgbMA_CheckedChanged(object sender, EventArgs e)  //Ajusta o número máximo de linhas e colunas apresentado como opção para o usuário manipular de acordo com a matriz A
         {
-            cbxColuna.Items.Clear();
-            for (int i = 0; i < matrizA.NumColunas; i++)
+            cbxColuna.Items.Clear();                         
+            for (int i = 0; i < matrizA.NumColunas; i++)    //Preenche o cbxColuna com o número certo de colunas que a matriz A tem
                 cbxColuna.Items.Add(i + "");
 
-            linhaUpDown.Maximum = matrizA.NumLinhas - 1;
-            colunaUpDown.Maximum = matrizA.NumColunas - 1;
+            linhaUpDown.Maximum = matrizA.NumLinhas - 1;    //Preenche o linhaUpDown com o número certo de linhas que a matriz A tem
+            colunaUpDown.Maximum = matrizA.NumColunas - 1;  //Preenche o colunaUpDown com o número certo de colunas que a matriz A tem
         }
 
-        private void rgbMB_CheckedChanged(object sender, EventArgs e)
+        private void rgbMB_CheckedChanged(object sender, EventArgs e)   //Ajusta o número máximo de linhas e colunas apresentado como opção para o usuário manipular de acordo com a matriz B
         {
             cbxColuna.Items.Clear();
-            for (int i = 0; i < matrizB.NumColunas; i++)
+            for (int i = 0; i < matrizB.NumColunas; i++)    //Preenche o cbxColuna com o número certo de colunas que a matriz B tem
                 cbxColuna.Items.Add(i + "");
-            linhaUpDown.Maximum = matrizB.NumLinhas - 1;
-            colunaUpDown.Maximum = matrizB.NumColunas - 1;
+            linhaUpDown.Maximum = matrizB.NumLinhas - 1;    //Preenche o linhaUpDown com o número certo de linhas que a matriz B tem
+            colunaUpDown.Maximum = matrizB.NumColunas - 1;   //Preenche o colunaUpDown com o número certo de colunas que a matriz B tem
         }
 
 
@@ -233,9 +231,15 @@ namespace apMatrizEsparsa
             numeroUpDown.Text = qualMatriz.ValorDe(l, c) + "";
 
             if (qualMatriz == matrizA)
+            {
+                rgbMA.Enabled = true;
                 rgbMA.Checked = true;
+            }                
             else
+            {
+                rgbMB.Enabled = true;
                 rgbMB.Checked = true;
+            }             
         }
 
         private void IniciarControles(bool estado)  //Método usado para ativar os botões para uso, após a leitura de pelo menos uma das listas
@@ -332,6 +336,11 @@ namespace apMatrizEsparsa
             colunaUpDown.Value = 0;
             cbxColuna.SelectedIndex = -1;
             valorUpDown.Value = 0;
+        }
+
+        private void frmMatriz_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

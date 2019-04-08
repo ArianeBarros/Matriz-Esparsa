@@ -20,7 +20,7 @@ namespace apMatrizEsparsa
             qtdValores = 0;
         }
 
-        public ListaCruzada(int linhas, int colunas) 
+        public ListaCruzada(int linhas, int colunas) //construtor que cria uma lista cruzada com tamanho já definidos
         {
             if (linhas < 0)
                 throw new Exception("Index de linha inválido");
@@ -54,12 +54,12 @@ namespace apMatrizEsparsa
         }
 
 
-        public int Qtd { get => qtdValores; }
-        public int NumLinhas { get => numLinhas; }
-        public int NumColunas { get => numColunas; }
-        public Celula Cabeca { get => cabeca; }
+        public int Qtd { get => qtdValores; }              //Propriedade que retorna a quantidade de valores da matriz
+        public int NumLinhas { get => numLinhas; }         //Propriedade que retorna o número de linhas da matriz
+        public int NumColunas { get => numColunas; }       //Propriedade que retorna o número de colunas da matriz
+        public Celula Cabeca { get => cabeca; }            //Propriedade que retorna a célula inicial/de referência da matriz
 
-        public void InserirElemento(int l, int c, double v)
+        public void InserirElemento(int l, int c, double v)  //Método que insere um novo valor na matriz, de acordo com os índices de linha, coluna e valor passados por parâmetro
         {
             if (l < 0 || l > numLinhas)
                 throw new Exception("Index de linha inválido");
@@ -85,30 +85,30 @@ namespace apMatrizEsparsa
             }
         }
 
-        public double ValorDe(int l, int c)
+        public double ValorDe(int l, int c)                          //Método que retorna o valor da célula na coordenadas passadas por parâmetro, caso exista, caso não exista retorna 0
         {
-            if (l < 0 || l > numLinhas)
+            if (l < 0 || l > numLinhas)          //Verifica se a linha é válida  
                 throw new Exception("Index de linha inválido");
-            if (c < 0 || c > numColunas)
+            if (c < 0 || c > numColunas)         //Verifica se a coluna é válida
                 throw new Exception("Index de coluna inválido");
 
-            if (Existe(l, c))
+            if (Existe(l, c))          //Caso exista um item na lista nessa posição, retornamos seu valor
                 return atualColuna.Abaixo.Valor;
-            else
+            else                       //Caso não exista, retornamos zero
                 return 0;
         }
 
-        protected bool Existe(int l, int c)
+        protected bool Existe(int l, int c)      //Método que verifica se uma célula em determinada posição existe ou não
         {
-            if (l < 0 || l > numLinhas)
+            if (l < 0 || l > numLinhas)          //Verifica se a linha é válida
                 throw new Exception("Index de linha inválido");
-            if (c < 0 || c > numColunas)
+            if (c < 0 || c > numColunas)         //Verifica se a coluna é válida
                 throw new Exception("Index de coluna inválido");
 
-            atualLinha = cabeca;
-            atualColuna = cabeca;
+            atualLinha = cabeca;    //Posiciona o atualLinha no ponto de referencia para o começo da lista
+            atualColuna = cabeca;   //Posiciona o atualColuna no ponto de referencia para o começo da lista
 
-            while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)
+            while (atualLinha.Linha < l && atualLinha.Abaixo != atualLinha)   //Loops usados para percorrer a lista e posicionar os ponteiros no local correto
             {
                 atualLinha = atualLinha.Abaixo;
             }
@@ -129,43 +129,43 @@ namespace apMatrizEsparsa
             }
 
             Celula procurada = atualLinha.Direita;
-            if (procurada.Coluna != c || procurada.Linha != l)
+            if (procurada.Coluna != c || procurada.Linha != l) //Verifica se existe um item nessa posiçao, caso não exista, as coordenadas referentes a este não baterão com as passadas por parâmetro
                 return false;
 
             return true;
         }
 
-        public void Listar(DataGridView dgv)
+        public void Listar(DataGridView dgv)                         //Método responsável por preencher o DataGridView passado por parâmetro com os elementos da lista
         {
             if (dgv == null)
                 throw new Exception("Parametros inválidos");
 
-            for (int l = 0; l < numLinhas; l++)
+            for (int l = 0; l < numLinhas; l++)                     //Percorre a lista e insere(caso exista) a célula atual
             {
                 for (int c = 0; c < numColunas; c++)
                 {
-                    if (Existe(l, c))
+                    if (Existe(l, c))  //Caso exista um elemento nas coordenadas atuais, este deve ser exibido no DataGridView passado por parâmetro
                         dgv[c, l].Value = atualColuna.Abaixo.Valor;
-                    else
+                    else               //Caso não exista, o valor zero deve ser exibido em seu lugar
                         dgv[c, l].Value = 0;
                 }
             }
         }
 
-        public bool Excluir(int l, int c)
+        public bool Excluir(int l, int c)   //Método que exclui da lista um elemento cuja posição é passada por parâmetro. Se for possível excluir o elemento, retornamos true, caso não seja possível retornamos false.
         {
-            if (l < 0 || l > numLinhas)
+            if (l < 0 || l > numLinhas)                  //Verifica se a linha passada como parâmetro é válida
                 throw new Exception("Index de linha inválido");
-            if (c < 0 || c > numColunas)
+            if (c < 0 || c > numColunas)                //Verifica se a coluna passada como parâmetro é válida
                 throw new Exception("Index de coluna inválido");
 
-            if (Existe(l, c))
+            if (Existe(l, c))               //Verifica se existe uma célula nessa posição, caso exista, a exclusão é possível
             {
                 Celula desejada = atualLinha.Direita;
 
-                atualColuna.Abaixo = desejada.Abaixo;
+                atualColuna.Abaixo = desejada.Abaixo;   //Mudamos as posições dos ponteiros de modo que nenhum aponte para a cécula escolhida, assim perdendo sua referência e deixando de existir
                 atualLinha.Direita = desejada.Direita;
-                qtdValores--;
+                qtdValores--;                           //Após a exclusão, diminuimos 1 na quantidade de elementos da lista
 
                 return true;
             }
@@ -173,7 +173,7 @@ namespace apMatrizEsparsa
             return false;
         }
 
-        public ListaCruzada SomarMatrizes(ListaCruzada listaB)
+        public ListaCruzada SomarMatrizes(ListaCruzada listaB)                      //Método que soma as duas listas sendo exibidas para o usuário
         {
             if (listaB == null)
                 throw new Exception("Parametros inválidos");
@@ -181,31 +181,32 @@ namespace apMatrizEsparsa
             if (this.NumColunas != listaB.NumColunas || this.NumLinhas != listaB.NumLinhas)
                 throw new Exception("Para somar matrizes, ambas devem ter a mesma dimensão");
 
-            ListaCruzada soma = new ListaCruzada(numLinhas, numColunas);
+            ListaCruzada soma = new ListaCruzada(numLinhas, numColunas); //Declaramos e instanciamos uma lista local, que guardará o resultado da soma das duas outras listas
 
-            for (int l = 0; l < numLinhas; l++)
+            for (int l = 0; l < numLinhas; l++)    //Percorremos as lista, somando item por item das listas e inserindo o resultado na lista
             {
                 for (int c = 0; c < numColunas; c++)
                 {
-                    double somaValores = ValorDe(l, c) + listaB.ValorDe(l, c);
-                    if(somaValores != 0)
+                    double somaValores = ValorDe(l, c) + listaB.ValorDe(l, c); //;Variavel que guarda a soma
+                    if(somaValores != 0)  //Caso a soma não seja zero, devemos inserir o novo elemento na lista soma, caso seja zero, o elemento não deve ser inserido
                         soma.InserirElemento(l,c, somaValores);
                 }
             }
 
             return soma;
         }
-        public ListaCruzada MultiplicarMatrizes(ListaCruzada listaB)
+        public ListaCruzada MultiplicarMatrizes(ListaCruzada listaB)        //Método que multiplica as duas listas sendo exibidas para o usuário
         {
-            if (listaB == null)
+            if (listaB == null)      //Caso a lista passada como parâmetro não seja instanciada, não multiplicamos e lançamos uma exceção
                 throw new Exception("Parametros inválidos");
 
-            if (this.NumLinhas != listaB.NumColunas)
+            if (this.NumLinhas != listaB.NumColunas) //?
                 throw new Exception("Para multiplicar matrizes, o número de linhas de uma deve ser igual ao número de colunas da outra");
 
-            ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas);
+            ListaCruzada produto = new ListaCruzada(numLinhas, listaB.numColunas); //Declaramos e instanciamos uma nova lista local, que será o resultado da multiplicação das listas
             double resultado = 0;
-            for (int l = 0; l < numLinhas; l++)
+
+            for (int l = 0; l < numLinhas; l++)   //Percorremos as lista, multiplicando item por item das listas e inserindo o resultado na lista
             {
                 for (int c = 0; c < listaB.NumColunas; c++)
                 {
@@ -214,49 +215,46 @@ namespace apMatrizEsparsa
                     {
                         resultado += ValorDe(l, col) * listaB.ValorDe(col, c);
                     }
-
-                        if (resultado != 0)
-                            produto.InserirElemento(l, c, resultado);
-                    
+                    if (resultado != 0)
+                        produto.InserirElemento(l, c, resultado);                    
                 }
-            }
-            
+            }            
 
             return produto;
         }
 
-        public void ExcluirMatriz()
-        {
+        public void ExcluirMatriz()                      //Método que exclui todos os elementos da lista, deixando de exibi-la para o usuário
+        { 
             cabeca = null;
             numColunas = 0;
             numLinhas = 0;
             qtdValores = 0;
         }
 
-        public bool EstaDesalocada
+        public bool EstaDesalocada                           //Método que retorna se o ponteiro cabeca(ponto de referência para a lista) está apontando para o lugar certo
         {
             get => cabeca == null;
         }
 
 
-        public void SomarColuna(double v, int qualColuna)
+        public void SomarColuna(double v, int qualColuna)    //Método de somar todos os itens de determinada coluna com o valor passado por parâmetro
         {
-            if (qualColuna < 0 || qualColuna > numColunas)
-                throw new Exception("Index de coluna inválido");
+            if (qualColuna < 0 || qualColuna > numColunas)   //Verifica se a coluna indicada existe
+                throw new Exception("Index de coluna inválido");  //Caso não exista, lança um erro
 
-            if(v != 0)
+            if(v != 0)   //Verifica se o valor escolhido para a soma pelo usuário é zero, caso seja, não somamos os itens pois não alterará seu valor
             {
-                for (int i = 0; i < NumLinhas; i++)
+                for (int i = 0; i < NumLinhas; i++)             //Percorre linha por linha, somando os itens da coluna escolhida com o valor desejado
                 {
-                    if (ValorDe(i, qualColuna) == 0)
-                        InserirElemento(i, qualColuna, v);
+                    if (ValorDe(i, qualColuna) == 0)            //Caso a célula atual não exista, ela é inserida na lista e seu valor(0) somado com o número escolhido
+                        InserirElemento(i, qualColuna, v);      //Chama o método InserirElemento e passa por parametro as coordenadas da célula atual(que temos certeza que existe) e seu valor a ser alterado após a soma
                     else
                     {
-                        Celula desejada = atualLinha.Direita;
-                        if (desejada.Valor + v == 0)
-                            Excluir(i, qualColuna);
+                        Celula desejada = atualLinha.Direita;    
+                        if (desejada.Valor + v == 0)  //Caso após a soma a célula fique com valor igual a zero, esta deve ser excluida
+                            Excluir(i, qualColuna);   //Chama o método excluir passando por parâmetro as coordenadas da célula atual
                         else
-                            InserirElemento(i, qualColuna, v + desejada.Valor);
+                            InserirElemento(i, qualColuna, v + desejada.Valor);  //Caso o resultado da soma seja diferente de zero, chamamos o InserirElemento, que verifica se a célula existe e, nesse caso já que existe, altera seu valor pelo passado como parâmetro
                     }
                 }
             }

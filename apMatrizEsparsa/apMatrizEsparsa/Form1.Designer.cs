@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvB = new System.Windows.Forms.DataGridView();
             this.dgvA = new System.Windows.Forms.DataGridView();
             this.dgvResultado = new System.Windows.Forms.DataGridView();
@@ -60,6 +60,7 @@
             this.lblErro = new System.Windows.Forms.ToolStripLabel();
             this.btnExcluirMatriz = new System.Windows.Forms.Button();
             this.btnMultiplicarMatrizes = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).BeginInit();
@@ -81,14 +82,14 @@
             this.dgvB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvB.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvB.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvB.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgvB.Location = new System.Drawing.Point(367, 100);
             this.dgvB.MultiSelect = false;
             this.dgvB.Name = "dgvB";
@@ -110,14 +111,14 @@
             this.dgvA.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvA.ColumnHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvA.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvA.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgvA.Location = new System.Drawing.Point(12, 100);
             this.dgvA.MultiSelect = false;
             this.dgvA.Name = "dgvA";
@@ -139,14 +140,14 @@
             this.dgvResultado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResultado.ColumnHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ScrollBar;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.ScrollBar;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvResultado.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvResultado.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgvResultado.Location = new System.Drawing.Point(12, 327);
             this.dgvResultado.MultiSelect = false;
             this.dgvResultado.Name = "dgvResultado";
@@ -168,7 +169,7 @@
             this.groupBox1.Size = new System.Drawing.Size(329, 190);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Somar K a coluna";
+            this.groupBox1.Text = "Somar K à coluna";
             // 
             // valorUpDown
             // 
@@ -270,7 +271,7 @@
             this.rgbMB.AutoSize = true;
             this.rgbMB.Enabled = false;
             this.rgbMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbMB.Location = new System.Drawing.Point(963, 36);
+            this.rgbMB.Location = new System.Drawing.Point(938, 58);
             this.rgbMB.Name = "rgbMB";
             this.rgbMB.Size = new System.Drawing.Size(85, 24);
             this.rgbMB.TabIndex = 10;
@@ -284,7 +285,7 @@
             this.rgbMA.AutoSize = true;
             this.rgbMA.Enabled = false;
             this.rgbMA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbMA.Location = new System.Drawing.Point(744, 36);
+            this.rgbMA.Location = new System.Drawing.Point(719, 58);
             this.rgbMA.Name = "rgbMA";
             this.rgbMA.Size = new System.Drawing.Size(85, 24);
             this.rgbMA.TabIndex = 9;
@@ -466,11 +467,22 @@
             this.btnMultiplicarMatrizes.UseVisualStyleBackColor = true;
             this.btnMultiplicarMatrizes.Click += new System.EventHandler(this.btnMultiplicarMatrizes_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Miriam CLM", 15.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.Location = new System.Drawing.Point(714, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(175, 23);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Escolha uma matriz:";
+            // 
             // frmMatriz
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 698);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnSomarMatrizes);
             this.Controls.Add(this.btnMultiplicarMatrizes);
             this.Controls.Add(this.btnExcluirMatriz);
@@ -487,6 +499,7 @@
             this.Name = "frmMatriz";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Matriz Esparsa";
+            this.Load += new System.EventHandler(this.frmMatriz_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).EndInit();
@@ -536,6 +549,7 @@
         private System.Windows.Forms.Button btnMultiplicarMatrizes;
         private System.Windows.Forms.NumericUpDown colunaUpDown;
         private System.Windows.Forms.NumericUpDown linhaUpDown;
+        private System.Windows.Forms.Label label4;
     }
 }
 
