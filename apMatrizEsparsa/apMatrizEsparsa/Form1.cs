@@ -276,44 +276,52 @@ namespace apMatrizEsparsa
 
         private void LerMatriz(ref ListaCruzada lista, DataGridView dgv, RadioButton qualRb)  //Método para ler um arquivo e construir uma matriz a partir de seus dados
         {
-            if (dlgAbrir.ShowDialog() == DialogResult.OK)                 //Verifica se o 'openFileDialog' foi aberto corretamente             
+            try
             {
-                txtErro.Items.Clear();
-                var arquivo = new StreamReader(dlgAbrir.FileName);        //Seleção do arquivo pelo usuário
-                string numeroLinhaColuna = arquivo.ReadLine();            //variável do tipo string que guarda a linha inteira lida
-                lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5))); //Instanciação da matriz passada como parâmetro com os valores lidos da primeira linha do arquivo, que guarda o número de linhas e de colunas que a matriz deve ter
-
-                AjustarDataGridView(dgv, lista.NumLinhas, lista.NumColunas);    //Chama o método que adapta o DataGridView escolhido ao tamanho da matriz lida
-                IniciarControles(true);                      //Habilitar os botões que agora(após a instanciação da matriz) podem ser selecionados
-
-                bool teveErro = false;                   //Variável do tipo boolean que é usada para informar o programa e o usuário na ocorrência de algum erro 
-
-                while (!arquivo.EndOfStream)             //Loop que garante que todas as linhas do arquivo serão lidas
+                if (dlgAbrir.ShowDialog() == DialogResult.OK)                 //Verifica se o 'openFileDialog' foi aberto corretamente             
                 {
-                    Celula lida = Celula.LerRegistro(arquivo);  //Uma nova célula é criada a partir dos dados lidos, por meio do método da classe Celula LerRegistro, que se encarrega de criar uma nova celula ao ler uma linha por vez
+                    txtErro.Items.Clear();
+                    var arquivo = new StreamReader(dlgAbrir.FileName);        //Seleção do arquivo pelo usuário
+                    string numeroLinhaColuna = arquivo.ReadLine();            //variável do tipo string que guarda a linha inteira lida
+                    lista = new ListaCruzada(int.Parse(numeroLinhaColuna.Substring(0, 5)), int.Parse(numeroLinhaColuna.Substring(5, 5))); //Instanciação da matriz passada como parâmetro com os valores lidos da primeira linha do arquivo, que guarda o número de linhas e de colunas que a matriz deve ter
 
-                    if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha >= lista.NumLinhas || lida.Coluna >= lista.NumColunas)   //Caso os índices de posicionamento da célula seja inválido, a celula não será criada e o erro aparecerá para o usuário 
+                    AjustarDataGridView(dgv, lista.NumLinhas, lista.NumColunas);    //Chama o método que adapta o DataGridView escolhido ao tamanho da matriz lida
+                    IniciarControles(true);                      //Habilitar os botões que agora(após a instanciação da matriz) podem ser selecionados
+
+                    bool teveErro = false;                   //Variável do tipo boolean que é usada para informar o programa e o usuário na ocorrência de algum erro 
+
+                    while (!arquivo.EndOfStream)             //Loop que garante que todas as linhas do arquivo serão lidas
                     {
-                        teveErro = true;
-                        txtErro.Items.Add($"({lida.Linha}, {lida.Coluna})");
-                        continue;
+                        Celula lida = Celula.LerRegistro(arquivo);  //Uma nova célula é criada a partir dos dados lidos, por meio do método da classe Celula LerRegistro, que se encarrega de criar uma nova celula ao ler uma linha por vez
+
+                        if (lida.Coluna < 0 || lida.Linha < 0 || lida.Linha >= lista.NumLinhas || lida.Coluna >= lista.NumColunas)   //Caso os índices de posicionamento da célula seja inválido, a celula não será criada e o erro aparecerá para o usuário 
+                        {
+                            teveErro = true;
+                            txtErro.Items.Add($"({lida.Linha}, {lida.Coluna})");
+                            continue;
+                        }
+
+                        lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);   //Caso não haja erro, a célula será criada  e o loop continuará
                     }
 
-                    lista.InserirElemento(lida.Linha, lida.Coluna, lida.Valor);   //Caso não haja erro, a célula será criada  e o loop continuará
+                    if (teveErro)         //Em caso de erro, uma mensagem será apresentada ao usuário 
+                        lblErro.Text = "Células com index não suportados pela matriz: "; //Mensagem de erro específica à invalidação do posicionamento da célula lida 
+
+                    arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
+                    lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
+                    ExibirInformacoes(lista, 0, 0);
+                    if (lista == matrizA)
+                        dgvB.ClearSelection();
+                    else
+                        dgvA.ClearSelection();
+                    qualRb.Checked = true;
                 }
-
-                if (teveErro)         //Em caso de erro, uma mensagem será apresentada ao usuário 
-                    lblErro.Text = "Células com index não suportados pela matriz: "; //Mensagem de erro específica à invalidação do posicionamento da célula lida 
-
-                arquivo.Close();      //Depois do fim da leitura do arquivo, o arquivo é fechado
-                lista.Listar(dgv);    //Listagem da matriz lida no dgv escolhido
-                ExibirInformacoes(lista, 0, 0);
-                if (lista == matrizA)
-                    dgvB.ClearSelection();
-                else
-                    dgvA.ClearSelection();
-                qualRb.Checked = true;
             }
+            catch(Exception e)
+            {
+                MessageBox.Show("Selecione um arquivo texto correto", "Erro na leitura da matriz", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
 
         private void dgvB_CellEnter(object sender, DataGridViewCellEventArgs e)
