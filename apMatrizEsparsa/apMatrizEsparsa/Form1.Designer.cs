@@ -79,8 +79,6 @@
             this.dgvB.AllowUserToDeleteRows = false;
             this.dgvB.AllowUserToResizeColumns = false;
             this.dgvB.AllowUserToResizeRows = false;
-            this.dgvB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvB.ColumnHeadersVisible = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -94,7 +92,6 @@
             this.dgvB.MultiSelect = false;
             this.dgvB.Name = "dgvB";
             this.dgvB.RowHeadersVisible = false;
-            this.dgvB.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvB.Size = new System.Drawing.Size(332, 193);
             this.dgvB.TabIndex = 0;
             this.dgvB.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvB_CellClick);
@@ -108,8 +105,6 @@
             this.dgvA.AllowUserToDeleteRows = false;
             this.dgvA.AllowUserToResizeColumns = false;
             this.dgvA.AllowUserToResizeRows = false;
-            this.dgvA.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvA.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvA.ColumnHeadersVisible = false;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -123,7 +118,6 @@
             this.dgvA.MultiSelect = false;
             this.dgvA.Name = "dgvA";
             this.dgvA.RowHeadersVisible = false;
-            this.dgvA.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvA.Size = new System.Drawing.Size(332, 193);
             this.dgvA.TabIndex = 1;
             this.dgvA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvA_CellClick);
@@ -137,8 +131,6 @@
             this.dgvResultado.AllowUserToDeleteRows = false;
             this.dgvResultado.AllowUserToResizeColumns = false;
             this.dgvResultado.AllowUserToResizeRows = false;
-            this.dgvResultado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvResultado.ColumnHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -153,7 +145,6 @@
             this.dgvResultado.Name = "dgvResultado";
             this.dgvResultado.ReadOnly = true;
             this.dgvResultado.RowHeadersVisible = false;
-            this.dgvResultado.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvResultado.Size = new System.Drawing.Size(687, 265);
             this.dgvResultado.TabIndex = 2;
             // 
@@ -495,7 +486,6 @@
             this.Name = "frmMatriz";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Matriz Esparsa";
-            this.Load += new System.EventHandler(this.frmMatriz_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultado)).EndInit();

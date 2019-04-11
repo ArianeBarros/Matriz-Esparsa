@@ -263,10 +263,14 @@ namespace apMatrizEsparsa
             qualDgv.ColumnCount = numColunas;  //Ajusta o número de colunas do dgv
             qualDgv.RowCount = numLinhas;      //Ajusta o número de linhas do dgv
 
-            int tamanhoCelula = qualDgv.Height / numLinhas; 
-
-            foreach (DataGridViewRow linha in qualDgv.Rows)   //Configura o tamanho de todas as células para que fiquem uniformizadas
-                linha.Height = linha.MinimumHeight = tamanhoCelula;
+            int tamanhoCelula = qualDgv.Height / numLinhas;
+            if (tamanhoCelula > 2)
+            {
+                foreach (DataGridViewRow linha in qualDgv.Rows)   //Configura o tamanho de todas as células para que fiquem uniformizadas
+                    linha.Height = linha.MinimumHeight = tamanhoCelula;
+                qualDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                
+            }
         }
 
         private void LerMatriz(ref ListaCruzada lista, DataGridView dgv, RadioButton qualRb)  //Método para ler um arquivo e construir uma matriz a partir de seus dados
@@ -319,33 +323,29 @@ namespace apMatrizEsparsa
             
         }
 
-        private void dgvB_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void dgvB_CellEnter(object sender, DataGridViewCellEventArgs e)     // metodo de quando o usuario selecionar uma celula
         {
-            ExibirInformacoes(matrizB, e.RowIndex, e.ColumnIndex);
+            ExibirInformacoes(matrizB, e.RowIndex, e.ColumnIndex);  // exibimos a informação da celula selecionada
         }
 
-        private void dgvA_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void dgvA_CellEnter(object sender, DataGridViewCellEventArgs e) // metodo de quando o usuario selecionar uma celula
         {
-            ExibirInformacoes(matrizA, e.RowIndex, e.ColumnIndex);
+            ExibirInformacoes(matrizA, e.RowIndex, e.ColumnIndex);  // exibimos a informação da celula selecionada
         }
 
         private void dgvB_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Delete)
+            if (e.KeyData == Keys.Delete)           // caso seja apertado a tecla delete, executaremos o método para excluir tal posição
                 btnDeletar.PerformClick();
         }
 
-        private void LimparCampos()
+        private void LimparCampos()     // método que limpa os campos
         {
             numeroUpDown.Value = 0;
             linhaUpDown.Value = 0;
             colunaUpDown.Value = 0;
             cbxColuna.SelectedIndex = -1;
             valorUpDown.Value = 0;
-        }
-
-        private void frmMatriz_Load(object sender, EventArgs e)
-        {
         }
     }
 }
