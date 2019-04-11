@@ -42,7 +42,7 @@ namespace apMatrizEsparsa
                 }                    
             }
 
-            return cel;
+            return cel;  //Retornamos a celula criada a partir da leitura da linha do arquivo
         }
 
         public int Coluna { get => coluna; }  //Propriedade que retorna a coluna respectiva à célula usada como referência

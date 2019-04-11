@@ -22,31 +22,31 @@ namespace apMatrizEsparsa
 
         public ListaCruzada(int linhas, int colunas) //construtor que cria uma lista cruzada com tamanho já definidos
         {
-            if (linhas < 0)
+            if (linhas < 0)  //Se o número de linhas for negativo não é possível criar a lista cruzada, por isso lançamos uma exceção
                 throw new Exception("Index de linha inválido");
-            if (colunas < 0)
+            if (colunas < 0)//Se o número de colunas for negativo não é possível criar a lista cruzada, por isso lançamos uma exceção
                 throw new Exception("Index de coluna inválido");
 
-            cabeca = new Celula(-1, -1, 0, null, null);
-            qtdValores = 0;
-            numLinhas = linhas;
-            numColunas = colunas;
+            cabeca = new Celula(-1, -1, 0, null, null); //Ao criarmos a cabeca, passamos como parâmetro números negativos porque a célula cabeca não está na matriz, serve como ponto referência para conseguirmos percorrer a lista
+            qtdValores = 0;  //No momento inicial, não existe nenhum elemento, portanto atribuimos zero à variável qtdValores
+            numLinhas = linhas;  //Atribuimos ao atributo da classe o numero de linhas desta
+            numColunas = colunas;//Atribuimos ao atributo da classe o numero de colunas desta
 
-            Celula atual = cabeca;
-            for (int i = 0; i < linhas; i++) 
+            Celula atual = cabeca; //Para percorrer a lista cruzada, precisamos de um começo, a cabeca é o nosso ponto de partida
+            for (int i = 0; i < linhas; i++) //Em um loop, criamos as células da lista
             {
                 Celula novaCelula = new Celula(i, -1, 0, null, null);
-                atual.Abaixo = novaCelula;
+                atual.Abaixo = novaCelula;   //Ao adicionarmos um novo elemento à uma lista, precisamos ajustar os ponteiros para não perdemos o novo elemento
                 atual = novaCelula;
                 atual.Direita = atual;
             }
             atual.Abaixo = cabeca;
 
-            atual = cabeca;
-            for (int i = 0; i < colunas; i++)
+            atual = cabeca;  //Para percorrer a lista cruzada, precisamos de um começo, a cabeca é o nosso ponto de partida
+            for (int i = 0; i < colunas; i++) //Em um loop, criamos as células da lista
             {
                 Celula novaCelula = new Celula(-1, i, 0, null, null);
-                atual.Direita = novaCelula;
+                atual.Direita = novaCelula; //Ao adicionarmos um novo elemento à uma lista, precisamos ajustar os ponteiros para não perdemos o novo elemento
                 atual = novaCelula;
                 atual.Abaixo = atual;
             }

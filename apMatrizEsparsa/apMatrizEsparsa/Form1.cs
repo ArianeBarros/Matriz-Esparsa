@@ -9,11 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-/*
- * Indicar número de linhas e colunas
- * Salvar??
- * */
-
 namespace apMatrizEsparsa
 {
     public partial class frmMatriz : Form
@@ -49,25 +44,25 @@ namespace apMatrizEsparsa
                 MessageBox.Show("Para somar matrizes, ambas precisam ter a mesma dimensão", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvA.ColumnCount);
-                ListaCruzada soma = matrizA.SomarMatrizes(matrizB);
-                soma.Listar(dgvResultado);
+                AjustarDataGridView(dgvResultado, dgvA.RowCount, dgvA.ColumnCount); //Ajustamos o tamanho do dgvResultado ao tamanho da matriz que nele será exibida após a soma
+                ListaCruzada soma = matrizA.SomarMatrizes(matrizB); //Chama o método da classe ListaCruzada e atribui seu retorno à nova lista criada, soma
+                soma.Listar(dgvResultado);  //Após a soma feita, listamos o resultado para o usuário
             }
         }
 
         private void btnSomarColuna_Click(object sender, EventArgs e)    //Método que soma todos os itens de uma coluna com o número escolhido pelo usuário no valorUpDown, na coluna indicada no cbxColuna
         {
-            if (cbxColuna.SelectedItem == null)
+            if (cbxColuna.SelectedItem == null) //Verifica se o usuário escolheu uma coluna para manipular, caso não tenha esoclhido, não é possível realizar a operação, portanto lançamos uma exceção avisando o usuário do erro
                 MessageBox.Show("Selecione uma coluna", "Erro ao somar", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
             if (rgbMA.Checked)   //Verifica se o usuário quer manipular a matriz A
             {
-                matrizA.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));
+                matrizA.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));  //Chama o método da ListaCruzada com os parâmetros do número a somar e a coluna escolhidos pelo usuário
                 matrizA.Listar(dgvA);  //Lista a matriz A após ser alterada
             }
             else                //Verifica se o usuário quer manipular a matriz B
             {
-                matrizB.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));  
+                matrizB.SomarColuna(int.Parse(valorUpDown.Value.ToString()), Convert.ToInt32(cbxColuna.SelectedItem));  //Chama o método da ListaCruzada com os parâmetros do número a somar e a coluna escolhidos pelo usuário
                 matrizB.Listar(dgvB); //Lista a matriz B após ser alterada
             }
         }
